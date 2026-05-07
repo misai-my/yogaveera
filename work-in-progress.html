@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Work in Progress | Isha Training</title>
+  <link rel="icon" type="image/x-icon" href="https://training.ishayoga.eu/static/indigo/images/favicon.049a0f1a2bb1.ico" />
+
+  <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    html,
+    body{
+      margin:0;
+      padding:0;
+      min-height:100%;
+      color:#313131;
+      background:#fff;
+      font-family:"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size:16px;
+      line-height:1.5;
+    }
+
+    body{
+      min-height:100vh;
+    }
+
+    a{
+      color:#0075b4;
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    .window-wrap{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      background:#f7f7f7;
+    }
+
+    .global-header{
+      background:#fff;
+      border-bottom:1px solid #e5e5e5;
+      box-shadow:0 1px 3px rgba(0,0,0,.08);
+    }
+
+    .main-header{
+      width:100%;
+      max-width:1180px;
+      min-height:76px;
+      margin:0 auto;
+      padding:0 32px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .header-logo{
+      margin:0;
+      line-height:1;
+    }
+
+    .header-logo a{
+      display:inline-flex;
+      align-items:center;
+    }
+
+    .header-logo .logo{
+      display:block;
+      max-height:52px;
+      max-width:178px;
+      object-fit:contain;
+    }
+
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      color:#555;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .language-switcher{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+    }
+
+    .language-switcher select{
+      height:36px;
+      min-width:118px;
+      border:1px solid #c8c8c8;
+      border-radius:3px;
+      background:#fff;
+      padding:0 10px;
+      color:#333;
+      font:inherit;
+      cursor:pointer;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:40px;
+      padding:9px 18px;
+      border-radius:3px;
+      border:1px solid #0075b4;
+      font-weight:600;
+      line-height:1.2;
+      text-decoration:none;
+      transition:background .18s ease, color .18s ease, border-color .18s ease;
+      cursor:pointer;
+      font:inherit;
+    }
+
+    .btn-primary{
+      color:#fff;
+      background:#0075b4;
+    }
+
+    .btn-secondary{
+      color:#0075b4;
+      background:#fff;
+    }
+
+    .btn-muted{
+      color:#555;
+      background:#fff;
+      border-color:#c8c8c8;
+    }
+
+    .btn:hover,
+    .btn:focus{
+      text-decoration:none;
+      background:#065f91;
+      border-color:#065f91;
+      color:#fff;
+    }
+
+    .wip-hero{
+      min-height:250px;
+      background:
+        linear-gradient(rgba(0,0,0,.34), rgba(0,0,0,.34)),
+        url("https://www.ishayoga.eu/wp-content/uploads/2021/04/isha-yoga-center-london-home-banner.jpg") center center / cover no-repeat;
+    }
+
+    .main-content{
+      flex:1 0 auto;
+      padding:42px 32px 64px;
+    }
+
+    .wip-shell{
+      max-width:920px;
+      margin:-130px auto 0;
+    }
+
+    .wip-card{
+      background:#fff;
+      border:1px solid #dedede;
+      border-radius:3px;
+      box-shadow:0 2px 8px rgba(0,0,0,.12);
+      overflow:hidden;
+    }
+
+    .wip-card-inner{
+      padding:42px 40px;
+      text-align:center;
+    }
+
+    .wip-badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:34px;
+      padding:7px 14px;
+      margin-bottom:20px;
+      border:1px solid #dcecf4;
+      background:#f8fbfd;
+      color:#0075b4;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+
+    .wip-card h1{
+      margin:0 0 12px;
+      color:#333;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:42px;
+      font-weight:400;
+      line-height:1.15;
+    }
+
+    .wip-card p{
+      max-width:660px;
+      margin:0 auto 18px;
+      color:#626262;
+      font-size:16px;
+      line-height:1.7;
+    }
+
+    .divider-yoga{
+      display:block;
+      width:112px;
+      max-width:100%;
+      height:auto;
+      margin:18px auto 26px;
+    }
+
+    .wip-actions{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:12px;
+      margin-top:26px;
+    }
+
+    .info-panel{
+      border-top:1px solid #ececec;
+      background:#fbfbfb;
+      padding:28px 40px;
+    }
+
+    .info-grid{
+      max-width:760px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:18px;
+    }
+
+    .info-item{
+      text-align:center;
+      padding:18px 14px;
+      background:#fff;
+      border:1px solid #e5e5e5;
+      border-radius:3px;
+    }
+
+    .info-icon{
+      width:38px;
+      height:38px;
+      margin:0 auto 10px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid #0075b4;
+      color:#0075b4;
+      background:#f7fcff;
+      font-weight:700;
+    }
+
+    .info-item h2{
+      margin:0 0 6px;
+      color:#333;
+      font-size:15px;
+      line-height:1.3;
+    }
+
+    .info-item p{
+      margin:0;
+      color:#666;
+      font-size:13px;
+      line-height:1.55;
+    }
+
+    .wrapper-footer{
+      background:#f8f8f8;
+      border-top:1px solid #e3e3e3;
+      flex-shrink:0;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      padding:26px 32px;
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      color:#777;
+      font-size:13px;
+    }
+
+    .footer-links{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width:800px){
+      .info-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:700px){
+      .main-header{
+        min-height:68px;
+        padding:0 20px;
+      }
+
+      .header-actions{
+        gap:10px;
+      }
+
+      .language-switcher label{
+        display:none;
+      }
+
+      .language-switcher select{
+        min-width:104px;
+      }
+
+      .wip-hero{
+        min-height:180px;
+      }
+
+      .main-content{
+        padding:28px 20px 48px;
+      }
+
+      .wip-shell{
+        margin-top:-78px;
+      }
+
+      .wip-card-inner{
+        padding:32px 22px;
+      }
+
+      .wip-card h1{
+        font-size:32px;
+      }
+
+      .wip-actions{
+        display:grid;
+      }
+
+      .wip-actions .btn{
+        width:100%;
+      }
+
+      .info-panel{
+        padding:24px 20px;
+      }
+
+      .footer-inner{
+        padding:24px 20px;
+        flex-direction:column;
+      }
+    }
+  </style>
+</head>
+<body class="ltr lang_en">
+  <div class="window-wrap">
+    <header class="global-header">
+      <div class="main-header">
+        <h1 class="header-logo">
+          <a href="index.html" aria-label="Isha Training Home Page" data-i18n-aria="homeAria">
+            <img class="logo" src="https://training.ishayoga.eu/static/indigo/images/logo.45c36d811e2d.png" alt="Isha Training Home Page" data-i18n-alt="homeAria" />
+          </a>
+        </h1>
+
+        <div class="header-actions">
+          <div class="language-switcher">
+            <label for="languageSelect" data-i18n="language">Language</label>
+            <select id="languageSelect" aria-label="Language">
+              <option value="en">English</option>
+              <option value="ta">தமிழ்</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="wip-hero"></div>
+
+    <main class="main-content">
+      <section class="wip-shell" aria-label="Work in progress">
+        <article class="wip-card">
+          <div class="wip-card-inner">
+            <div class="wip-badge" data-i18n="badge">Work in progress</div>
+            <h1 data-i18n="title">This page is coming soon</h1>
+            <p data-i18n="message">We are still preparing this section of the training portal. Please check back later or return to the dashboard to continue your available training steps.</p>
+            <img class="divider-yoga" src="https://www.ishayoga.eu/wp-content/themes/iyc_lon/img/divider-yoga.svg" alt="" />
+
+            <div class="wip-actions">
+              <a class="btn btn-primary" href="dashboard.html" data-i18n="backDashboard">Back to dashboard</a>
+              <a class="btn btn-secondary" href="index.html" data-i18n="backHome">Back to home</a>
+              <a class="btn btn-muted" href="https://training.ishayoga.eu/contact" target="_blank" rel="noopener" data-i18n="contactSupport">Contact support</a>
+            </div>
+          </div>
+
+          <div class="info-panel">
+            <div class="info-grid">
+              <div class="info-item">
+                <div class="info-icon">1</div>
+                <h2 data-i18n="infoOneTitle">Page setup</h2>
+                <p data-i18n="infoOneDesc">This section is being prepared for future training content.</p>
+              </div>
+              <div class="info-item">
+                <div class="info-icon">2</div>
+                <h2 data-i18n="infoTwoTitle">Content review</h2>
+                <p data-i18n="infoTwoDesc">Materials and instructions will be added once ready.</p>
+              </div>
+              <div class="info-item">
+                <div class="info-icon">3</div>
+                <h2 data-i18n="infoThreeTitle">Access update</h2>
+                <p data-i18n="infoThreeDesc">The link will be activated when this section is complete.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="wrapper-footer">
+      <div class="footer-inner">
+        <div data-i18n="copyright">© Isha Training. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="https://training.ishayoga.eu/about" data-i18n="about">About</a>
+          <a href="https://training.ishayoga.eu/contact" data-i18n="contact">Contact</a>
+          <a href="https://training.ishayoga.eu/tos" data-i18n="tos">Terms of service</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const translations = {
+      en: {
+        htmlLang: "en",
+        homeAria: "Isha Training Home Page",
+        language: "Language",
+        badge: "Work in progress",
+        title: "This page is coming soon",
+        message: "We are still preparing this section of the training portal. Please check back later or return to the dashboard to continue your available training steps.",
+        backDashboard: "Back to dashboard",
+        backHome: "Back to home",
+        contactSupport: "Contact support",
+        infoOneTitle: "Page setup",
+        infoOneDesc: "This section is being prepared for future training content.",
+        infoTwoTitle: "Content review",
+        infoTwoDesc: "Materials and instructions will be added once ready.",
+        infoThreeTitle: "Access update",
+        infoThreeDesc: "The link will be activated when this section is complete.",
+        copyright: "© Isha Training. All rights reserved.",
+        about: "About",
+        contact: "Contact",
+        tos: "Terms of service"
+      },
+      ta: {
+        htmlLang: "ta",
+        homeAria: "ஈஷா பயிற்சி முகப்பு பக்கம்",
+        language: "மொழி",
+        badge: "பணி நடைபெறுகிறது",
+        title: "இந்தப் பக்கம் விரைவில் வரும்",
+        message: "பயிற்சி தளத்தின் இந்த பகுதி இன்னும் தயாராகிக் கொண்டிருக்கிறது. தயவுசெய்து பின்னர் மீண்டும் பார்க்கவும் அல்லது கிடைக்கும் பயிற்சி படிகளை தொடர டாஷ்போர்டுக்கு திரும்பவும்.",
+        backDashboard: "டாஷ்போர்டுக்கு திரும்பவும்",
+        backHome: "முகப்புக்கு திரும்பவும்",
+        contactSupport: "ஆதரவைக் தொடர்பு கொள்ளவும்",
+        infoOneTitle: "பக்க அமைப்பு",
+        infoOneDesc: "இந்த பகுதி எதிர்கால பயிற்சி உள்ளடக்கத்திற்காக தயாராகிறது.",
+        infoTwoTitle: "உள்ளடக்க மதிப்பாய்வு",
+        infoTwoDesc: "தயார் ஆனதும் பொருட்கள் மற்றும் வழிமுறைகள் சேர்க்கப்படும்.",
+        infoThreeTitle: "அணுகல் புதுப்பிப்பு",
+        infoThreeDesc: "இந்த பகுதி நிறைவடைந்ததும் இணைப்பு செயல்படுத்தப்படும்.",
+        copyright: "© ஈஷா பயிற்சி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
+        about: "பற்றி",
+        contact: "தொடர்பு",
+        tos: "சேவை விதிமுறைகள்"
+      }
+    };
+
+    const languageSelect = document.getElementById("languageSelect");
+
+    function getCurrentLang(){
+      return localStorage.getItem("ishaTrainingLang") || "en";
+    }
+
+    function setLanguage(lang){
+      const safeLang = translations[lang] ? lang : "en";
+      const t = translations[safeLang];
+
+      localStorage.setItem("ishaTrainingLang", safeLang);
+      document.documentElement.lang = t.htmlLang;
+      document.body.className = `ltr lang_${safeLang}`;
+      languageSelect.value = safeLang;
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if(t[key]) el.textContent = t[key];
+      });
+
+      document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+        const key = el.getAttribute("data-i18n-aria");
+        if(t[key]) el.setAttribute("aria-label", t[key]);
+      });
+
+      document.querySelectorAll("[data-i18n-alt]").forEach(el => {
+        const key = el.getAttribute("data-i18n-alt");
+        if(t[key]) el.setAttribute("alt", t[key]);
+      });
+    }
+
+    languageSelect.addEventListener("change", event => {
+      setLanguage(event.target.value);
+    });
+
+    setLanguage(getCurrentLang());
+  </script>
+</body>
+</html>
