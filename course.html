@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yoga Veera Training | Isha Training</title>
+  <link rel="icon" type="image/x-icon" href="https://training.ishayoga.eu/static/indigo/images/favicon.049a0f1a2bb1.ico" />
+
+  <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    html,
+    body{
+      margin:0;
+      padding:0;
+      min-height:100%;
+      color:#313131;
+      background:#fff;
+      font-family:"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size:16px;
+      line-height:1.5;
+    }
+
+    body{
+      min-height:100vh;
+    }
+
+    a{
+      color:#0075b4;
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    .window-wrap{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      background:#f7f7f7;
+    }
+
+    .global-header{
+      background:#fff;
+      border-bottom:1px solid #e5e5e5;
+      box-shadow:0 1px 3px rgba(0,0,0,.08);
+    }
+
+    .main-header{
+      width:100%;
+      max-width:1180px;
+      min-height:76px;
+      margin:0 auto;
+      padding:0 32px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .header-logo{
+      margin:0;
+      line-height:1;
+    }
+
+    .header-logo a{
+      display:inline-flex;
+      align-items:center;
+    }
+
+    .header-logo .logo{
+      display:block;
+      max-height:52px;
+      max-width:178px;
+      object-fit:contain;
+    }
+
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      color:#555;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .language-switcher{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+    }
+
+    .language-switcher select{
+      height:36px;
+      min-width:118px;
+      border:1px solid #c8c8c8;
+      border-radius:3px;
+      background:#fff;
+      padding:0 10px;
+      color:#333;
+      font:inherit;
+      cursor:pointer;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:38px;
+      padding:8px 16px;
+      border-radius:3px;
+      border:1px solid #0075b4;
+      font-weight:600;
+      line-height:1.2;
+      text-decoration:none;
+      transition:background .18s ease, color .18s ease, border-color .18s ease;
+      cursor:pointer;
+      font:inherit;
+    }
+
+    .btn-primary{
+      color:#fff;
+      background:#0075b4;
+    }
+
+    .btn-secondary{
+      color:#0075b4;
+      background:#fff;
+    }
+
+    .btn-muted{
+      color:#555;
+      background:#fff;
+      border-color:#c8c8c8;
+    }
+
+    .btn:hover,
+    .btn:focus{
+      text-decoration:none;
+      background:#065f91;
+      border-color:#065f91;
+      color:#fff;
+    }
+
+    .btn:disabled,
+    .is-disabled{
+      cursor:not-allowed;
+      opacity:.68;
+      pointer-events:none;
+    }
+
+    .training-hero{
+      min-height:260px;
+      background:
+        linear-gradient(rgba(0,0,0,.34), rgba(0,0,0,.34)),
+        url("https://www.ishayoga.eu/wp-content/uploads/2021/04/isha-yoga-center-london-home-banner.jpg") center center / cover no-repeat;
+    }
+
+    .main-content{
+      flex:1 0 auto;
+      padding:42px 32px 64px;
+    }
+
+    .training-shell{
+      max-width:1180px;
+      margin:-138px auto 0;
+      display:grid;
+      gap:28px;
+    }
+
+    .loading-card,
+    .hero-card,
+    .section-card,
+    .module-card{
+      background:#fff;
+      border:1px solid #dedede;
+      border-radius:3px;
+      box-shadow:0 2px 8px rgba(0,0,0,.12);
+    }
+
+    .loading-card{
+      padding:34px;
+      text-align:center;
+      color:#666;
+    }
+
+    .spinner{
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      border:4px solid #d7eaf5;
+      border-top-color:#0075b4;
+      margin:0 auto 16px;
+      animation:spin .85s linear infinite;
+    }
+
+    @keyframes spin{
+      to{ transform:rotate(360deg); }
+    }
+
+    .training-content{
+      display:none;
+      gap:28px;
+    }
+
+    .training-content.show{
+      display:grid;
+    }
+
+    .hero-card{
+      overflow:hidden;
+    }
+
+    .hero-inner{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 340px;
+      gap:26px;
+      align-items:center;
+      padding:36px;
+    }
+
+    .hero-copy h1{
+      margin:0 0 10px;
+      color:#333;
+      font-family:Georgia, "Times New Roman", serif;
+      font-weight:400;
+      font-size:42px;
+      line-height:1.12;
+    }
+
+    .hero-copy p{
+      margin:0 0 18px;
+      color:#626262;
+      font-size:16px;
+      line-height:1.7;
+      max-width:720px;
+    }
+
+    .divider-yoga{
+      display:block;
+      width:112px;
+      max-width:100%;
+      height:auto;
+      margin:18px 0 0;
+    }
+
+    .training-image{
+      background:#f0f0f0;
+      border:1px solid #d8d8d8;
+      border-radius:3px;
+      overflow:hidden;
+      box-shadow:0 1px 4px rgba(0,0,0,.08);
+    }
+
+    .training-image img{
+      width:100%;
+      aspect-ratio:16/9;
+      object-fit:cover;
+      display:block;
+    }
+
+    .progress-strip{
+      border-top:1px solid #ececec;
+      background:#fbfbfb;
+      padding:18px 36px;
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:16px;
+    }
+
+    .progress-item{
+      display:grid;
+      gap:4px;
+    }
+
+    .progress-label{
+      color:#777;
+      font-size:12px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+
+    .progress-value{
+      color:#333;
+      font-size:15px;
+      font-weight:700;
+    }
+
+    .section-card{
+      padding:30px;
+    }
+
+    .section-heading{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:20px;
+      margin-bottom:20px;
+    }
+
+    .section-heading h2{
+      margin:0;
+      color:#333;
+      font-size:26px;
+      line-height:1.25;
+      font-weight:600;
+    }
+
+    .section-heading p{
+      margin:6px 0 0;
+      color:#666;
+      font-size:14px;
+      line-height:1.6;
+      max-width:720px;
+    }
+
+    .module-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:20px;
+    }
+
+    .module-card{
+      box-shadow:0 1px 3px rgba(0,0,0,.08);
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      min-height:260px;
+      transition:box-shadow .18s ease, transform .18s ease;
+    }
+
+    .module-card:hover{
+      transform:translateY(-1px);
+      box-shadow:0 4px 10px rgba(0,0,0,.14);
+    }
+
+    .module-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .module-number{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid #0075b4;
+      color:#0075b4;
+      background:#f7fcff;
+      font-size:14px;
+      font-weight:800;
+    }
+
+    .module-status{
+      display:inline-flex;
+      align-items:center;
+      min-height:28px;
+      padding:5px 10px;
+      border-radius:999px;
+      background:#f4f4f4;
+      color:#666;
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .module-status.available{
+      background:#e8f5ee;
+      color:#0f6b3b;
+    }
+
+    .module-card h3{
+      margin:0 0 10px;
+      color:#333;
+      font-size:19px;
+      line-height:1.3;
+      font-weight:700;
+    }
+
+    .module-card p{
+      margin:0 0 18px;
+      color:#666;
+      font-size:14px;
+      line-height:1.65;
+      flex:1;
+    }
+
+    .module-card .btn{
+      width:100%;
+    }
+
+    .quick-links{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:20px;
+    }
+
+    .quick-link-card{
+      background:#fbfbfb;
+      border:1px solid #e5e5e5;
+      border-radius:3px;
+      padding:22px;
+      display:grid;
+      gap:12px;
+    }
+
+    .quick-link-card h3{
+      margin:0;
+      color:#333;
+      font-size:20px;
+    }
+
+    .quick-link-card p{
+      margin:0;
+      color:#666;
+      font-size:14px;
+      line-height:1.65;
+    }
+
+    .status-message{
+      display:none;
+      padding:13px 14px;
+      border-radius:3px;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .status-message.show{
+      display:block;
+    }
+
+    .status-message.error{
+      color:#842029;
+      background:#f8d7da;
+      border:1px solid #f5c2c7;
+    }
+
+    .status-message.success{
+      color:#0f5132;
+      background:#d1e7dd;
+      border:1px solid #badbcc;
+    }
+
+    .status-message.info{
+      color:#055160;
+      background:#cff4fc;
+      border:1px solid #b6effb;
+    }
+
+    .wrapper-footer{
+      background:#f8f8f8;
+      border-top:1px solid #e3e3e3;
+      flex-shrink:0;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      padding:26px 32px;
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      color:#777;
+      font-size:13px;
+    }
+
+    .footer-links{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width:980px){
+      .hero-inner,
+      .module-grid,
+      .quick-links{
+        grid-template-columns:1fr;
+      }
+
+      .training-image{
+        max-width:520px;
+      }
+
+      .progress-strip{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:700px){
+      .main-header{
+        min-height:68px;
+        padding:0 20px;
+      }
+
+      .header-actions{
+        gap:10px;
+      }
+
+      .language-switcher label{
+        display:none;
+      }
+
+      .language-switcher select{
+        min-width:104px;
+      }
+
+      .btn-secondary.logout-button{
+        padding-left:12px;
+        padding-right:12px;
+      }
+
+      .training-hero{
+        min-height:190px;
+      }
+
+      .main-content{
+        padding:28px 20px 48px;
+      }
+
+      .training-shell{
+        margin-top:-82px;
+      }
+
+      .hero-inner,
+      .section-card{
+        padding:24px 20px;
+      }
+
+      .progress-strip{
+        padding:18px 20px;
+      }
+
+      .hero-copy h1{
+        font-size:32px;
+      }
+
+      .section-heading{
+        display:block;
+      }
+
+      .footer-inner{
+        padding:24px 20px;
+        flex-direction:column;
+      }
+    }
+  </style>
+</head>
+<body class="ltr lang_en">
+  <div class="window-wrap">
+    <header class="global-header">
+      <div class="main-header">
+        <h1 class="header-logo">
+          <a href="dashboard.html" aria-label="Isha Training Dashboard" data-i18n-aria="dashboardAria">
+            <img class="logo" src="https://training.ishayoga.eu/static/indigo/images/logo.45c36d811e2d.png" alt="Isha Training Dashboard" data-i18n-alt="dashboardAria" />
+          </a>
+        </h1>
+
+        <div class="header-actions">
+          <a class="btn btn-secondary" href="dashboard.html" data-i18n="dashboard">Dashboard</a>
+          <button id="logoutButton" class="btn btn-secondary logout-button" type="button" data-i18n="logout">Logout</button>
+          <div class="language-switcher">
+            <label for="languageSelect" data-i18n="language">Language</label>
+            <select id="languageSelect" aria-label="Language">
+              <option value="en">English</option>
+              <option value="ta">தமிழ்</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="training-hero"></div>
+
+    <main class="main-content">
+      <section class="training-shell" aria-label="Yoga Veera training landing page">
+        <div id="loadingCard" class="loading-card">
+          <div class="spinner" aria-hidden="true"></div>
+          <div data-i18n="loading">Checking your account...</div>
+        </div>
+
+        <div id="trainingContent" class="training-content">
+          <section class="hero-card">
+            <div class="hero-inner">
+              <div class="hero-copy">
+                <h1 data-i18n="pageTitle">Yoga Veera Training</h1>
+                <p data-i18n="pageIntro">This is your starting point for the Yoga Veera training journey. Follow each step in order and return here whenever you need to continue.</p>
+                <a class="btn btn-primary" href="https://training.ishayoga.eu/courses/course-v1:Isha+CS001+2023/about" target="_blank" rel="noopener" data-i18n="openOfficialCourse">Open official course</a>
+                <img class="divider-yoga" src="https://www.ishayoga.eu/wp-content/themes/iyc_lon/img/divider-yoga.svg" alt="" />
+              </div>
+
+              <div class="training-image">
+                <img src="https://training.ishayoga.eu/asset-v1:Isha+CS001+2023+type@asset+block@Using_an_Online_Platform__Google_Meet_Tutorial.png" alt="Yoga Veera Online Course" data-i18n-alt="courseTitle" />
+              </div>
+            </div>
+
+            <div class="progress-strip">
+              <div class="progress-item">
+                <span class="progress-label" data-i18n="accountLabel">Account</span>
+                <span class="progress-value" id="userName">—</span>
+              </div>
+              <div class="progress-item">
+                <span class="progress-label" data-i18n="courseLabel">Course</span>
+                <span class="progress-value" data-i18n="courseTitle">Yoga Veera Online Course</span>
+              </div>
+              <div class="progress-item">
+                <span class="progress-label" data-i18n="statusLabel">Status</span>
+                <span class="progress-value" data-i18n="statusStarted">Ready to begin</span>
+              </div>
+            </div>
+          </section>
+
+          <div id="statusMessage" class="status-message" role="status" aria-live="polite"></div>
+
+          <section class="section-card">
+            <div class="section-heading">
+              <div>
+                <h2 data-i18n="trainingStepsTitle">Training steps</h2>
+                <p data-i18n="trainingStepsIntro">Use these cards as the training pathway. The links can be connected to real content pages as they become available.</p>
+              </div>
+            </div>
+
+            <div class="module-grid">
+              <article class="module-card">
+                <div class="module-top">
+                  <span class="module-number">01</span>
+                  <span class="module-status available" data-i18n="available">Available</span>
+                </div>
+                <h3 data-i18n="moduleOneTitle">Course Orientation</h3>
+                <p data-i18n="moduleOneDesc">Begin with the official Yoga Veera Online Course and understand the purpose, structure, and expectations.</p>
+                <a class="btn btn-primary" href="https://training.ishayoga.eu/courses/course-v1:Isha+CS001+2023/about" target="_blank" rel="noopener" data-i18n="startModule">Start</a>
+              </article>
+
+              <article class="module-card">
+                <div class="module-top">
+                  <span class="module-number">02</span>
+                  <span class="module-status" data-i18n="comingSoon">Coming soon</span>
+                </div>
+                <h3 data-i18n="moduleTwoTitle">Activities / Assessments</h3>
+                <p data-i18n="moduleTwoDesc">Complete the required activities, checklists, or assessment items connected to the training.</p>
+                <a class="btn btn-muted" href="work-in-progress.html" data-i18n="openSection">Open section</a>
+              </article>
+
+              <article class="module-card">
+                <div class="module-top">
+                  <span class="module-number">03</span>
+                  <span class="module-status" data-i18n="comingSoon">Coming soon</span>
+                </div>
+                <h3 data-i18n="moduleThreeTitle">Q&A / Support</h3>
+                <p data-i18n="moduleThreeDesc">Use this section for common questions, training support, and clarifications before completion.</p>
+                <a class="btn btn-muted" href="work-in-progress.html" data-i18n="openSection">Open section</a>
+              </article>
+
+              <article class="module-card">
+                <div class="module-top">
+                  <span class="module-number">04</span>
+                  <span class="module-status" data-i18n="comingSoon">Coming soon</span>
+                </div>
+                <h3 data-i18n="moduleFourTitle">Completion</h3>
+                <p data-i18n="moduleFourDesc">Review completion requirements and receive the next instructions once the training is finished.</p>
+                <a class="btn btn-muted" href="work-in-progress.html" data-i18n="openSection">Open section</a>
+              </article>
+
+              <article class="module-card">
+                <div class="module-top">
+                  <span class="module-number">05</span>
+                  <span class="module-status" data-i18n="comingSoon">Coming soon</span>
+                </div>
+                <h3 data-i18n="moduleFiveTitle">Post-training files</h3>
+                <p data-i18n="moduleFiveDesc">After completion, access the files and resources needed to run Yoga Veera sessions.</p>
+                <a class="btn btn-muted" href="work-in-progress.html" data-i18n="openSection">Open section</a>
+              </article>
+
+              <article class="module-card">
+                <div class="module-top">
+                  <span class="module-number">06</span>
+                  <span class="module-status" data-i18n="comingSoon">Coming soon</span>
+                </div>
+                <h3 data-i18n="moduleSixTitle">Feedback</h3>
+                <p data-i18n="moduleSixDesc">Share feedback about your training experience and help improve the process for future participants.</p>
+                <a class="btn btn-muted" href="work-in-progress.html" data-i18n="openSection">Open section</a>
+              </article>
+            </div>
+          </section>
+
+          <section class="section-card">
+            <div class="section-heading">
+              <div>
+                <h2 data-i18n="quickLinksTitle">Quick links</h2>
+                <p data-i18n="quickLinksIntro">Useful places to continue, review, or get help.</p>
+              </div>
+            </div>
+
+            <div class="quick-links">
+              <div class="quick-link-card">
+                <h3 data-i18n="courseDetailsTitle">Course details</h3>
+                <p data-i18n="courseDetailsDesc">Review the public course information, welcome message, and requirements.</p>
+                <a class="btn btn-muted" href="course-details.html" data-i18n="viewDetails">View details</a>
+              </div>
+
+              <div class="quick-link-card">
+                <h3 data-i18n="supportTitle">Need support?</h3>
+                <p data-i18n="supportDesc">Contact the training team if you need help with account access or training instructions.</p>
+                <a class="btn btn-muted" href="https://training.ishayoga.eu/contact" target="_blank" rel="noopener" data-i18n="contactSupport">Contact support</a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrapper-footer">
+      <div class="footer-inner">
+        <div data-i18n="copyright">© Isha Training. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="https://training.ishayoga.eu/about" data-i18n="about">About</a>
+          <a href="https://training.ishayoga.eu/contact" data-i18n="contact">Contact</a>
+          <a href="https://training.ishayoga.eu/tos" data-i18n="tos">Terms of service</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module">
+    import "./supabase-config.js";
+
+    const supabase = window.supabaseClient;
+
+    const translations = {
+      en: {
+        htmlLang: "en",
+        dashboardAria: "Isha Training Dashboard",
+        dashboard: "Dashboard",
+        logout: "Logout",
+        loggingOut: "Logging out...",
+        language: "Language",
+        loading: "Checking your account...",
+        pageTitle: "Yoga Veera Training",
+        pageIntro: "This is your starting point for the Yoga Veera training journey. Follow each step in order and return here whenever you need to continue.",
+        openOfficialCourse: "Open official course",
+        accountLabel: "Account",
+        courseLabel: "Course",
+        courseTitle: "Yoga Veera Online Course",
+        statusLabel: "Status",
+        statusStarted: "Ready to begin",
+        trainingStepsTitle: "Training steps",
+        trainingStepsIntro: "Use these cards as the training pathway. The links can be connected to real content pages as they become available.",
+        available: "Available",
+        comingSoon: "Coming soon",
+        moduleOneTitle: "Course Orientation",
+        moduleOneDesc: "Begin with the official Yoga Veera Online Course and understand the purpose, structure, and expectations.",
+        moduleTwoTitle: "Activities / Assessments",
+        moduleTwoDesc: "Complete the required activities, checklists, or assessment items connected to the training.",
+        moduleThreeTitle: "Q&A / Support",
+        moduleThreeDesc: "Use this section for common questions, training support, and clarifications before completion.",
+        moduleFourTitle: "Completion",
+        moduleFourDesc: "Review completion requirements and receive the next instructions once the training is finished.",
+        moduleFiveTitle: "Post-training files",
+        moduleFiveDesc: "After completion, access the files and resources needed to run Yoga Veera sessions.",
+        moduleSixTitle: "Feedback",
+        moduleSixDesc: "Share feedback about your training experience and help improve the process for future participants.",
+        startModule: "Start",
+        openSection: "Open section",
+        quickLinksTitle: "Quick links",
+        quickLinksIntro: "Useful places to continue, review, or get help.",
+        courseDetailsTitle: "Course details",
+        courseDetailsDesc: "Review the public course information, welcome message, and requirements.",
+        viewDetails: "View details",
+        supportTitle: "Need support?",
+        supportDesc: "Contact the training team if you need help with account access or training instructions.",
+        contactSupport: "Contact support",
+        sessionExpired: "Please sign in to access the training page.",
+        configError: "Supabase is not configured. Please check supabase-config.js.",
+        logoutError: "Unable to log out. Please try again.",
+        copyright: "© Isha Training. All rights reserved.",
+        about: "About",
+        contact: "Contact",
+        tos: "Terms of service"
+      },
+      ta: {
+        htmlLang: "ta",
+        dashboardAria: "ஈஷா பயிற்சி டாஷ்போர்டு",
+        dashboard: "டாஷ்போர்டு",
+        logout: "வெளியேறு",
+        loggingOut: "வெளியேறுகிறது...",
+        language: "மொழி",
+        loading: "உங்கள் கணக்கு சரிபார்க்கப்படுகிறது...",
+        pageTitle: "யோக வீரா பயிற்சி",
+        pageIntro: "யோக வீரா பயிற்சி பயணத்திற்கான உங்கள் தொடக்க இடம் இது. ஒவ்வொரு படியையும் வரிசையாக பின்பற்றி, தொடர வேண்டிய போது இங்கே திரும்பி வாருங்கள்.",
+        openOfficialCourse: "அதிகாரப்பூர்வ பாடநெறியைத் திறக்கவும்",
+        accountLabel: "கணக்கு",
+        courseLabel: "பாடநெறி",
+        courseTitle: "யோக வீரா ஆன்லைன் பாடநெறி",
+        statusLabel: "நிலை",
+        statusStarted: "தொடங்க தயாராக உள்ளது",
+        trainingStepsTitle: "பயிற்சி படிகள்",
+        trainingStepsIntro: "இந்த அட்டைகளை பயிற்சி பாதையாக பயன்படுத்தவும். உண்மையான உள்ளடக்கப் பக்கங்கள் தயாரானதும் இணைப்புகளை மாற்றலாம்.",
+        available: "கிடைக்கிறது",
+        comingSoon: "விரைவில் வரும்",
+        moduleOneTitle: "பாடநெறி அறிமுகம்",
+        moduleOneDesc: "அதிகாரப்பூர்வ யோக வீரா ஆன்லைன் பாடநெறியுடன் தொடங்கி, அதன் நோக்கம், அமைப்பு மற்றும் எதிர்பார்ப்புகளைப் புரிந்துகொள்ளுங்கள்.",
+        moduleTwoTitle: "செயல்பாடுகள் / மதிப்பீடுகள்",
+        moduleTwoDesc: "பயிற்சியுடன் தொடர்புடைய தேவையான செயல்பாடுகள், சரிபார்ப்பு பட்டியல்கள் அல்லது மதிப்பீடுகளை முடிக்கவும்.",
+        moduleThreeTitle: "கேள்வி & பதில் / ஆதரவு",
+        moduleThreeDesc: "பொதுவான கேள்விகள், பயிற்சி ஆதரவு மற்றும் நிறைவுக்கு முன் தெளிவுகளுக்காக இந்த பகுதியைப் பயன்படுத்தவும்.",
+        moduleFourTitle: "நிறைவு",
+        moduleFourDesc: "பயிற்சி முடிந்ததும் நிறைவு தேவைகளைப் பார்த்து அடுத்த வழிமுறைகளைப் பெறவும்.",
+        moduleFiveTitle: "பயிற்சிக்குப் பிந்தைய கோப்புகள்",
+        moduleFiveDesc: "நிறைவு செய்த பிறகு, யோக வீரா அமர்வுகளை நடத்த தேவையான கோப்புகள் மற்றும் வளங்களை அணுகவும்.",
+        moduleSixTitle: "கருத்து",
+        moduleSixDesc: "உங்கள் பயிற்சி அனுபவத்தைப் பற்றிய கருத்தை பகிர்ந்து, எதிர்கால பங்கேற்பாளர்களுக்கான செயல்முறையை மேம்படுத்த உதவவும்.",
+        startModule: "தொடங்கு",
+        openSection: "பகுதியைத் திறக்கவும்",
+        quickLinksTitle: "விரைவு இணைப்புகள்",
+        quickLinksIntro: "தொடர, மதிப்பாய்வு செய்ய அல்லது உதவி பெற பயனுள்ள இடங்கள்.",
+        courseDetailsTitle: "பாடநெறி விவரங்கள்",
+        courseDetailsDesc: "பொது பாடநெறி தகவல், வரவேற்பு செய்தி மற்றும் தேவைகளை மதிப்பாய்வு செய்யவும்.",
+        viewDetails: "விவரங்களைப் பார்க்கவும்",
+        supportTitle: "ஆதரவு தேவையா?",
+        supportDesc: "கணக்கு அணுகல் அல்லது பயிற்சி வழிமுறைகளில் உதவி தேவைப்பட்டால் பயிற்சி குழுவைத் தொடர்பு கொள்ளவும்.",
+        contactSupport: "ஆதரவைக் தொடர்பு கொள்ளவும்",
+        sessionExpired: "பயிற்சி பக்கத்தை அணுக தயவுசெய்து உள்நுழையவும்.",
+        configError: "Supabase அமைக்கப்படவில்லை. supabase-config.js ஐச் சரிபார்க்கவும்.",
+        logoutError: "வெளியேற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+        copyright: "© ஈஷா பயிற்சி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
+        about: "பற்றி",
+        contact: "தொடர்பு",
+        tos: "சேவை விதிமுறைகள்"
+      }
+    };
+
+    const languageSelect = document.getElementById("languageSelect");
+    const logoutButton = document.getElementById("logoutButton");
+    const loadingCard = document.getElementById("loadingCard");
+    const trainingContent = document.getElementById("trainingContent");
+    const statusMessage = document.getElementById("statusMessage");
+    const userName = document.getElementById("userName");
+
+    let currentUser = null;
+
+    function getCurrentLang(){
+      return localStorage.getItem("ishaTrainingLang") || "en";
+    }
+
+    function setLanguage(lang){
+      const safeLang = translations[lang] ? lang : "en";
+      const t = translations[safeLang];
+
+      localStorage.setItem("ishaTrainingLang", safeLang);
+      document.documentElement.lang = t.htmlLang;
+      document.body.className = `ltr lang_${safeLang}`;
+      languageSelect.value = safeLang;
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if(t[key]) el.textContent = t[key];
+      });
+
+      document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+        const key = el.getAttribute("data-i18n-aria");
+        if(t[key]) el.setAttribute("aria-label", t[key]);
+      });
+
+      document.querySelectorAll("[data-i18n-alt]").forEach(el => {
+        const key = el.getAttribute("data-i18n-alt");
+        if(t[key]) el.setAttribute("alt", t[key]);
+      });
+
+      renderUser(currentUser);
+    }
+
+    function showStatus(type, message){
+      statusMessage.className = `status-message show ${type}`;
+      statusMessage.textContent = message;
+    }
+
+    function getLoginUrl(params = ""){
+      const url = new URL("login.html", window.location.href);
+      if(params){
+        const searchParams = new URLSearchParams(params);
+        searchParams.forEach((value, key) => url.searchParams.set(key, value));
+      }
+      return url.href;
+    }
+
+    function getDisplayName(user){
+      if(!user) return "—";
+      const meta = user.user_metadata || {};
+      return meta.full_name || meta.name || user.email || "—";
+    }
+
+    function getPreferredLanguage(user){
+      if(!user) return getCurrentLang();
+      const meta = user.user_metadata || {};
+      return translations[meta.preferred_language] ? meta.preferred_language : getCurrentLang();
+    }
+
+    function renderUser(user){
+      userName.textContent = getDisplayName(user);
+    }
+
+    async function redirectIfNotSignedIn(){
+      const t = translations[getCurrentLang()];
+
+      if(!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY || !window.supabaseClient){
+        loadingCard.innerHTML = `<div class="status-message show error">${t.configError}</div>`;
+        return;
+      }
+
+      try{
+        const { data, error } = await supabase.auth.getSession();
+
+        if(error || !data || !data.session){
+          sessionStorage.setItem("trainingMessage", t.sessionExpired);
+          window.location.href = getLoginUrl("auth=required");
+          return;
+        }
+
+        currentUser = data.session.user;
+        setLanguage(getPreferredLanguage(currentUser));
+        renderUser(currentUser);
+
+        loadingCard.style.display = "none";
+        trainingContent.classList.add("show");
+      }catch(error){
+        window.location.href = getLoginUrl("auth=required");
+      }
+    }
+
+    languageSelect.addEventListener("change", async event => {
+      const selectedLang = event.target.value;
+      setLanguage(selectedLang);
+
+      if(currentUser && window.supabaseClient){
+        try{
+          const { data, error } = await supabase.auth.updateUser({
+            data: {
+              preferred_language: selectedLang
+            }
+          });
+
+          if(!error && data && data.user){
+            currentUser = data.user;
+          }
+        }catch(error){
+          console.warn("Language update failed", error);
+        }
+      }
+    });
+
+    logoutButton.addEventListener("click", async () => {
+      const t = translations[getCurrentLang()];
+      logoutButton.disabled = true;
+      logoutButton.textContent = t.loggingOut;
+
+      try{
+        const { error } = await supabase.auth.signOut();
+
+        if(error){
+          showStatus("error", error.message || t.logoutError);
+          logoutButton.disabled = false;
+          logoutButton.textContent = t.logout;
+          return;
+        }
+
+        window.location.href = getLoginUrl("logout=1");
+      }catch(error){
+        showStatus("error", error.message || t.logoutError);
+        logoutButton.disabled = false;
+        logoutButton.textContent = t.logout;
+      }
+    });
+
+    setLanguage(getCurrentLang());
+    redirectIfNotSignedIn();
+  </script>
+</body>
+</html>
