@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yoga Veera Online Course | Isha Training</title>
+  <link rel="icon" type="image/x-icon" href="https://training.ishayoga.eu/static/indigo/images/favicon.049a0f1a2bb1.ico" />
+
+  <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    html,
+    body{
+      margin:0;
+      padding:0;
+      min-height:100%;
+      color:#313131;
+      background:#fff;
+      font-family:"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size:16px;
+      line-height:1.5;
+    }
+
+    body{
+      min-height:100vh;
+    }
+
+    a{
+      color:#0075b4;
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    .window-wrap{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      background:#fff;
+    }
+
+    .sr-only,
+    .sr{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    .sr-only-focusable:focus{
+      position:fixed;
+      top:10px;
+      left:10px;
+      width:auto;
+      height:auto;
+      clip:auto;
+      padding:10px 14px;
+      background:#fff;
+      color:#111;
+      z-index:9999;
+      border:2px solid #0075b4;
+      border-radius:3px;
+    }
+
+    .global-header{
+      position:relative;
+      z-index:10;
+      background:#fff;
+      border-bottom:1px solid #e5e5e5;
+      box-shadow:0 1px 3px rgba(0,0,0,.08);
+    }
+
+    .global-header.slim .main-header{
+      min-height:76px;
+    }
+
+    .main-header{
+      width:100%;
+      max-width:1180px;
+      margin:0 auto;
+      padding:0 32px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .header-logo{
+      margin:0;
+      line-height:1;
+      display:flex;
+      align-items:center;
+      gap:18px;
+      min-width:0;
+    }
+
+    .header-logo > a{
+      display:inline-flex;
+      align-items:center;
+      flex-shrink:0;
+    }
+
+    .header-logo .logo{
+      display:block;
+      max-height:52px;
+      max-width:178px;
+      object-fit:contain;
+    }
+
+    .course-header{
+      display:flex;
+      align-items:center;
+      gap:5px;
+      min-width:0;
+      color:#555;
+      font-size:14px;
+      font-weight:600;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .course-header .provider,
+    .course-header .course-number{
+      color:#777;
+    }
+
+    .course-header .course-name{
+      color:#333;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      margin-left:auto;
+      font-size:14px;
+    }
+
+    .nav-links .secondary,
+    .nav-links .secondary > div{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:38px;
+      padding:8px 16px;
+      border-radius:3px;
+      border:1px solid #0075b4;
+      font-weight:600;
+      line-height:1.2;
+      text-decoration:none;
+      transition:background .18s ease, color .18s ease, border-color .18s ease;
+      cursor:pointer;
+      font:inherit;
+    }
+
+    .btn-primary,
+    .sign-in-btn{
+      color:#fff;
+      background:#0075b4;
+    }
+
+    .btn-secondary,
+    .register-btn{
+      color:#0075b4;
+      background:#fff;
+    }
+
+    .btn-muted{
+      color:#555;
+      background:#fff;
+      border-color:#c8c8c8;
+    }
+
+    .btn:hover,
+    .btn:focus{
+      text-decoration:none;
+      background:#065f91;
+      border-color:#065f91;
+      color:#fff;
+    }
+
+    .language-switcher{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-left:4px;
+      color:#555;
+      font-weight:600;
+      white-space:nowrap;
+    }
+
+    .language-switcher select{
+      height:36px;
+      min-width:118px;
+      border:1px solid #c8c8c8;
+      border-radius:3px;
+      background:#fff;
+      padding:0 10px;
+      color:#333;
+      font:inherit;
+      cursor:pointer;
+    }
+
+    .hamburger-menu{
+      display:none;
+      width:42px;
+      height:38px;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:4px;
+      cursor:pointer;
+      margin-left:auto;
+    }
+
+    .hamburger-menu .line{
+      display:block;
+      width:24px;
+      height:2px;
+      background:#444;
+      border-radius:2px;
+    }
+
+    .mobile-menu{
+      display:none;
+      border-top:1px solid #eee;
+      background:#fff;
+      padding:12px 20px 18px;
+    }
+
+    .mobile-menu.hidden{
+      display:none;
+    }
+
+    .mobile-menu.open{
+      display:block;
+    }
+
+    .mobile-menu a,
+    .mobile-menu label{
+      display:block;
+      padding:10px 0;
+      color:#333;
+      font-weight:600;
+    }
+
+    .mobile-menu .btn{
+      text-align:center;
+      margin-top:6px;
+      padding:10px 14px;
+      width:100%;
+    }
+
+    .mobile-menu select{
+      width:100%;
+      height:38px;
+      margin-top:6px;
+      padding:0 10px;
+    }
+
+    .marketing-hero{
+      min-height:225px;
+      background:
+        linear-gradient(rgba(0,0,0,.28), rgba(0,0,0,.28)),
+        url("https://www.ishayoga.eu/wp-content/uploads/2021/04/isha-yoga-center-london-home-banner.jpg") center center / cover no-repeat;
+    }
+
+    .content-wrapper{
+      flex:1 0 auto;
+      background:#fff;
+    }
+
+    .course-info{
+      background:#fff;
+    }
+
+    .course-profile{
+      background:#f8f8f8;
+      border-bottom:1px solid #e4e4e4;
+    }
+
+    .intro-inner-wrapper{
+      max-width:1180px;
+      margin:0 auto;
+      padding:44px 32px;
+    }
+
+    .profile-table{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 430px;
+      gap:42px;
+      align-items:center;
+    }
+
+    .intro .heading-group h1{
+      margin:0 0 12px;
+      color:#333;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:44px;
+      font-weight:400;
+      line-height:1.12;
+    }
+
+    .intro .heading-group span{
+      display:inline-block;
+      color:#666;
+      font-size:16px;
+      font-weight:600;
+      margin-bottom:22px;
+    }
+
+    .main-cta{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:12px;
+      margin-top:8px;
+    }
+
+    .register-large{
+      display:inline-flex;
+      min-height:48px;
+      padding:13px 24px;
+      border-radius:3px;
+      background:#0075b4;
+      color:#fff;
+      border:1px solid #0075b4;
+      font-weight:700;
+      text-decoration:none;
+      transition:background .18s ease, color .18s ease, border-color .18s ease;
+    }
+
+    .register-large:hover{
+      background:#065f91;
+      border-color:#065f91;
+      color:#fff;
+      text-decoration:none;
+    }
+
+    .register-note{
+      color:#666;
+      font-size:13px;
+      line-height:1.45;
+    }
+
+    .media .hero{
+      background:#fff;
+      border:1px solid #d8d8d8;
+      box-shadow:0 2px 8px rgba(0,0,0,.13);
+      overflow:hidden;
+      border-radius:3px;
+    }
+
+    .media .hero img{
+      display:block;
+      width:100%;
+      aspect-ratio:16/9;
+      object-fit:cover;
+      background:#eee;
+    }
+
+    .container{
+      max-width:1180px;
+      margin:0 auto;
+      padding:44px 32px 64px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 320px;
+      gap:42px;
+      align-items:start;
+    }
+
+    .details{
+      min-width:0;
+    }
+
+    .inner-wrapper{
+      background:#fff;
+    }
+
+    .about,
+    .prerequisites{
+      margin-bottom:38px;
+    }
+
+    .details h2{
+      margin:0 0 14px;
+      color:#333;
+      font-size:27px;
+      font-weight:600;
+      line-height:1.25;
+    }
+
+    .details p{
+      margin:0 0 17px;
+      color:#555;
+      font-size:16px;
+      line-height:1.75;
+    }
+
+    .course-sidebar{
+      min-width:0;
+    }
+
+    .course-summary{
+      background:#fff;
+      border:1px solid #dedede;
+      border-radius:3px;
+      box-shadow:0 1px 3px rgba(0,0,0,.08);
+      overflow:hidden;
+    }
+
+    .social-sharing{
+      padding:18px;
+      border-bottom:1px solid #e6e6e6;
+      background:#fbfbfb;
+    }
+
+    .sharing-message{
+      color:#555;
+      font-weight:700;
+      font-size:14px;
+      margin-bottom:12px;
+    }
+
+    .share-row{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .share{
+      width:36px;
+      height:36px;
+      border:1px solid #c8c8c8;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      color:#0075b4;
+      background:#fff;
+      border-radius:3px;
+      font-weight:700;
+      text-decoration:none;
+    }
+
+    .share:hover{
+      background:#0075b4;
+      color:#fff;
+      border-color:#0075b4;
+      text-decoration:none;
+    }
+
+    .important-dates{
+      list-style:none;
+      margin:0;
+      padding:0;
+    }
+
+    .important-dates-item{
+      display:grid;
+      grid-template-columns:34px minmax(0,1fr);
+      gap:12px;
+      padding:18px;
+      border-bottom:1px solid #e8e8e8;
+      color:#555;
+    }
+
+    .important-dates-item:last-child{
+      border-bottom:0;
+    }
+
+    .date-icon{
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      border:1px solid #0075b4;
+      color:#0075b4;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#f7fcff;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .important-dates-item-title{
+      margin:0 0 4px;
+      color:#333;
+      font-size:13px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.03em;
+    }
+
+    .important-dates-item-text{
+      display:block;
+      color:#666;
+      font-size:14px;
+    }
+
+    .side-cta{
+      padding:18px;
+      border-top:1px solid #e8e8e8;
+      background:#fbfbfb;
+    }
+
+    .side-cta .btn{
+      width:100%;
+    }
+
+    .wrapper-footer{
+      background:#f8f8f8;
+      border-top:1px solid #e3e3e3;
+      flex-shrink:0;
+    }
+
+    #footer-openedx{
+      max-width:1180px;
+      margin:0 auto;
+      padding:34px 32px 30px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:28px;
+      color:#666;
+      font-size:13px;
+    }
+
+    .nav-colophon ol,
+    .nav-legal ul{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px 20px;
+      list-style:none;
+      padding:0;
+      margin:0 0 18px;
+    }
+
+    .wrapper-logo img{
+      max-height:44px;
+      width:auto;
+    }
+
+    .copyright{
+      max-width:780px;
+      margin:14px 0 16px;
+      color:#777;
+    }
+
+    .footer-about-openedx p{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      margin:0;
+    }
+
+    .footer-about-openedx img{
+      max-width:140px;
+      height:auto;
+      display:block;
+    }
+
+    @media (max-width:980px){
+      .course-header{
+        display:none;
+      }
+
+      .profile-table,
+      .container{
+        grid-template-columns:1fr;
+      }
+
+      .course-sidebar{
+        max-width:520px;
+      }
+    }
+
+    @media (max-width:820px){
+      .main-header{
+        min-height:68px;
+        padding:0 20px;
+      }
+
+      .nav-links{
+        display:none;
+      }
+
+      .hamburger-menu{
+        display:flex;
+      }
+
+      .marketing-hero{
+        min-height:180px;
+      }
+
+      .intro-inner-wrapper,
+      .container,
+      #footer-openedx{
+        padding-left:20px;
+        padding-right:20px;
+      }
+
+      .intro .heading-group h1{
+        font-size:34px;
+      }
+
+      .details h2{
+        font-size:23px;
+      }
+
+      #footer-openedx{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:560px){
+      .main-cta{
+        display:grid;
+      }
+
+      .register-large,
+      .main-cta .btn{
+        justify-content:center;
+        width:100%;
+      }
+
+      .container{
+        padding-top:34px;
+        gap:30px;
+      }
+    }
+  </style>
+</head>
+<body class="ltr lang_en">
+  <div id="page-prompt"></div>
+  <div class="window-wrap" dir="ltr">
+    <a class="nav-skip sr-only sr-only-focusable" href="#main" data-i18n="skip">Skip to main content</a>
+
+    <header class="global-header slim">
+      <div class="main-header">
+        <h1 class="header-logo">
+          <a href="dashboard.html" aria-label="Isha Training Home Page" data-i18n-aria="homeAria">
+            <img class="logo" src="https://training.ishayoga.eu/static/indigo/images/logo.45c36d811e2d.png" alt="Isha Training Home Page" data-i18n-alt="homeAria" />
+          </a>
+          <div class="course-header">
+            <span class="provider">Isha:</span>
+            <span class="course-number">.</span>
+            <span class="course-name" data-i18n="courseTitle">Yoga Veera Online Course</span>
+          </div>
+        </h1>
+
+        <div class="hamburger-menu" role="button" aria-label="Options Menu" aria-expanded="false" aria-controls="mobile-menu" tabindex="0">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </div>
+
+        <nav class="nav-links" aria-label="Supplemental Links" data-i18n-aria="supplementalLinks">
+          <div class="secondary">
+            <div>
+              <a id="headerRegisterLink" class="register-btn btn" href="registration.html" data-i18n="register">Register</a>
+              <a id="headerSignInLink" class="sign-in-btn btn" href="login.html" data-i18n="signIn">Sign in</a>
+              <div class="language-switcher">
+                <label for="languageSelect" data-i18n="language">Language</label>
+                <select id="languageSelect" aria-label="Language">
+                  <option value="en">English</option>
+                  <option value="ta">தமிழ்</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="mobile-menu hidden" aria-label="More Options" role="menu" id="mobile-menu">
+        <a id="mobileRegisterLink" class="register-btn btn" href="registration.html" data-i18n="register">Register</a>
+        <a id="mobileSignInLink" class="sign-in-btn btn" href="login.html" data-i18n="signIn">Sign in</a>
+        <label for="languageSelectMobile" data-i18n="language">Language</label>
+        <select id="languageSelectMobile" aria-label="Language">
+          <option value="en">English</option>
+          <option value="ta">தமிழ்</option>
+        </select>
+      </div>
+    </header>
+
+    <div class="marketing-hero"></div>
+
+    <div class="content-wrapper main-container" id="content" dir="ltr">
+      <main id="main" aria-label="Content" tabindex="-1">
+        <section class="course-info">
+          <header class="course-profile">
+            <div class="intro-inner-wrapper">
+              <div class="profile-table">
+                <section class="intro">
+                  <div class="heading-group">
+                    <h1 data-i18n="courseTitle">Yoga Veera Online Course</h1>
+                    <span>Isha</span>
+                  </div>
+
+                  <div class="main-cta">
+                    <a id="mainEnrollButton" href="registration.html" class="register-large" data-i18n="enrollNow">Enroll Now</a>
+                    <a id="secondaryCourseButton" href="login.html" class="btn btn-muted" data-i18n="alreadyRegistered">Already registered? Sign in</a>
+                    <div class="register-note" id="registerNote" data-i18n="registerNote">Create an account to access your training dashboard.</div>
+                  </div>
+                </section>
+
+                <div class="media">
+                  <div class="hero">
+                    <img src="https://training.ishayoga.eu/asset-v1:Isha+CS001+2023+type@asset+block@Using_an_Online_Platform__Google_Meet_Tutorial.png" alt="Yoga Veera Online Course" data-i18n-alt="courseTitle" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <div class="container">
+            <div class="details">
+              <div class="inner-wrapper">
+                <section class="about">
+                  <h2 data-i18n="welcomeHeading">Welcome to the Yoga Veera Online Course!</h2>
+                  <p data-i18n="aboutP1">It is wonderful to see you here with the willingness to become a Yoga Veera. In this course you will be trained to offer simple yet powerful practices to the people around you, both in person and online.</p>
+                  <p data-i18n="aboutP2">The course consists of multiple sections which you can go through at your own pace. We recommend you to go through it in the order it is presented and to make an effort to finish the course within 2 weeks.</p>
+                  <p data-i18n="aboutP3">We wish you a lot of fun with this course and are happy to see your first Yoga Veera session soon!</p>
+                  <p data-i18n="withJoy">With joy,</p>
+                  <p data-i18n="ishaVolunteers">Isha volunteers :)</p>
+                </section>
+
+                <section class="prerequisites">
+                  <h2 data-i18n="requirementsHeading">Requirements</h2>
+                  <p data-i18n="requirementsText">No requirements or prerequisites are needed to go through this course! If you know someone that is interested in offering powerful yogic practices to others, they are more than welcome to join!</p>
+                </section>
+              </div>
+            </div>
+
+            <aside class="course-sidebar">
+              <div class="course-summary">
+                <header>
+                  <div class="social-sharing">
+                    <div class="sharing-message" data-i18n="shareMessage">Share with friends and family!</div>
+                    <div class="share-row">
+                      <a id="shareTwitter" href="#" class="share" target="_blank" rel="noopener" aria-label="Share on X">X</a>
+                      <a id="shareFacebook" href="#" class="share" target="_blank" rel="noopener" aria-label="Share on Facebook">f</a>
+                      <a id="shareEmail" href="#" class="share" aria-label="Share by email">@</a>
+                    </div>
+                  </div>
+                </header>
+
+                <ol class="important-dates">
+                  <li class="important-dates-item">
+                    <span class="date-icon" aria-hidden="true">i</span>
+                    <div>
+                      <p class="important-dates-item-title" data-i18n="courseNumberLabel">Course Number</p>
+                      <span class="important-dates-item-text course-number">.</span>
+                    </div>
+                  </li>
+                  <li class="important-dates-item">
+                    <span class="date-icon" aria-hidden="true">📅</span>
+                    <div>
+                      <p class="important-dates-item-title" data-i18n="classesStartLabel">Classes Start</p>
+                      <span id="startDate" class="important-dates-item-text start-date">May 24, 2023</span>
+                    </div>
+                  </li>
+                </ol>
+
+                <div class="side-cta">
+                  <a id="sidebarEnrollButton" class="btn btn-primary" href="registration.html" data-i18n="enrollNow">Enroll Now</a>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="wrapper wrapper-footer">
+      <footer id="footer-openedx" class="grid-container">
+        <div class="colophon">
+          <nav class="nav-colophon" aria-label="About" data-i18n-aria="aboutAria">
+            <ol>
+              <li><a href="https://training.ishayoga.eu/about" data-i18n="about">About</a></li>
+              <li><a href="https://training.ishayoga.eu/contact" data-i18n="contact">Contact</a></li>
+            </ol>
+          </nav>
+
+          <div class="wrapper-logo">
+            <p>
+              <a href="dashboard.html">
+                <img alt="organization logo" src="https://training.ishayoga.eu/static/indigo/images/logo.45c36d811e2d.png" data-i18n-alt="organizationLogo" />
+              </a>
+            </p>
+          </div>
+
+          <p class="copyright" data-i18n="copyright">© Isha Training. All rights reserved except where noted. edX, Open edX and their respective logos are registered trademarks of edX Inc.</p>
+
+          <nav class="nav-legal" aria-label="Legal" data-i18n-aria="legalAria">
+            <ul>
+              <li><a href="https://training.ishayoga.eu/tos" data-i18n="tos">Terms of service</a></li>
+              <li><a href="https://github.com/overhangio/tutor-indigo" data-i18n="indigoTheme">Indigo theme for Open edX</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="footer-about-openedx">
+          <p>
+            <a href="https://docs.tutor.overhang.io" rel="noopener" target="_blank">
+              <img src="https://training.ishayoga.eu/static/indigo/images/tutor-logo.234797f646eb.png" alt="Runs on Tutor" data-i18n-alt="runsOnTutor" height="42" />
+            </a>
+            <a href="https://open.edx.org" rel="noopener" target="_blank">
+              <img src="https://training.ishayoga.eu/static/indigo/images/openedx-logo.e783f426da35.png" alt="Powered by Open edX" data-i18n-alt="poweredByOpenedx" width="140" />
+            </a>
+          </p>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script type="module">
+    import "./supabase-config.js";
+
+    const supabase = window.supabaseClient;
+
+    const translations = {
+      en: {
+        htmlLang: "en",
+        skip: "Skip to main content",
+        homeAria: "Isha Training Home Page",
+        supplementalLinks: "Supplemental Links",
+        register: "Register",
+        signIn: "Sign in",
+        dashboard: "Dashboard",
+        logout: "Logout",
+        language: "Language",
+        courseTitle: "Yoga Veera Online Course",
+        enrollNow: "Enroll Now",
+        continueTraining: "Continue Training",
+        alreadyRegistered: "Already registered? Sign in",
+        goToDashboard: "Go to dashboard",
+        registerNote: "Create an account to access your training dashboard.",
+        dashboardNote: "You are signed in. Continue from your dashboard.",
+        welcomeHeading: "Welcome to the Yoga Veera Online Course!",
+        aboutP1: "It is wonderful to see you here with the willingness to become a Yoga Veera. In this course you will be trained to offer simple yet powerful practices to the people around you, both in person and online.",
+        aboutP2: "The course consists of multiple sections which you can go through at your own pace. We recommend you to go through it in the order it is presented and to make an effort to finish the course within 2 weeks.",
+        aboutP3: "We wish you a lot of fun with this course and are happy to see your first Yoga Veera session soon!",
+        withJoy: "With joy,",
+        ishaVolunteers: "Isha volunteers :)",
+        requirementsHeading: "Requirements",
+        requirementsText: "No requirements or prerequisites are needed to go through this course! If you know someone that is interested in offering powerful yogic practices to others, they are more than welcome to join!",
+        shareMessage: "Share with friends and family!",
+        courseNumberLabel: "Course Number",
+        classesStartLabel: "Classes Start",
+        startDate: "May 24, 2023",
+        aboutAria: "About",
+        about: "About",
+        contact: "Contact",
+        organizationLogo: "organization logo",
+        copyright: "© Isha Training. All rights reserved except where noted. edX, Open edX and their respective logos are registered trademarks of edX Inc.",
+        legalAria: "Legal",
+        tos: "Terms of service",
+        indigoTheme: "Indigo theme for Open edX",
+        runsOnTutor: "Runs on Tutor",
+        poweredByOpenedx: "Powered by Open edX"
+      },
+      ta: {
+        htmlLang: "ta",
+        skip: "முக்கிய உள்ளடக்கத்திற்குச் செல்லவும்",
+        homeAria: "ஈஷா பயிற்சி முகப்பு பக்கம்",
+        supplementalLinks: "கூடுதல் இணைப்புகள்",
+        register: "பதிவு செய்யவும்",
+        signIn: "உள்நுழையவும்",
+        dashboard: "டாஷ்போர்டு",
+        logout: "வெளியேறு",
+        language: "மொழி",
+        courseTitle: "யோக வீரா ஆன்லைன் பாடநெறி",
+        enrollNow: "இப்போது சேரவும்",
+        continueTraining: "பயிற்சியைத் தொடரவும்",
+        alreadyRegistered: "ஏற்கனவே பதிவு செய்துள்ளீர்களா? உள்நுழையவும்",
+        goToDashboard: "டாஷ்போர்டுக்கு செல்லவும்",
+        registerNote: "உங்கள் பயிற்சி டாஷ்போர்டை அணுக கணக்கை உருவாக்கவும்.",
+        dashboardNote: "நீங்கள் உள்நுழைந்துள்ளீர்கள். உங்கள் டாஷ்போர்டிலிருந்து தொடரவும்.",
+        welcomeHeading: "யோக வீரா ஆன்லைன் பாடநெறிக்கு வரவேற்கிறோம்!",
+        aboutP1: "யோக வீராவாக ஆகும் விருப்பத்துடன் நீங்கள் இங்கே இருப்பது மகிழ்ச்சி அளிக்கிறது. இந்த பாடநெறியில், உங்களைச் சுற்றியுள்ள மக்களுக்கு நேரடியாகவும் ஆன்லைனிலும் எளியதானாலும் சக்திவாய்ந்த பயிற்சிகளை வழங்க நீங்கள் பயிற்சி பெறுவீர்கள்.",
+        aboutP2: "இந்த பாடநெறியில் பல பகுதிகள் உள்ளன; அவற்றை உங்கள் சொந்த வேகத்தில் முடிக்கலாம். அவை வழங்கப்பட்ட வரிசையில் செல்லவும், 2 வாரங்களுக்குள் பாடநெறியை முடிக்க முயற்சி செய்யவும் பரிந்துரைக்கிறோம்.",
+        aboutP3: "இந்த பாடநெறியுடன் உங்களுக்கு மகிழ்ச்சியான அனுபவம் கிடைக்கட்டும். உங்கள் முதல் யோக வீரா அமர்வை விரைவில் காண ஆவலாக இருக்கிறோம்!",
+        withJoy: "மகிழ்ச்சியுடன்,",
+        ishaVolunteers: "ஈஷா தன்னார்வலர்கள் :)",
+        requirementsHeading: "தேவைகள்",
+        requirementsText: "இந்த பாடநெறியைப் பெற எந்த தேவைகளும் முன் நிபந்தனைகளும் இல்லை! சக்திவாய்ந்த யோக பயிற்சிகளை மற்றவர்களுக்கு வழங்க ஆர்வமுள்ள யாரேனும் உங்களுக்கு தெரிந்தால், அவர்களும் சேர வரவேற்கப்படுகிறார்கள்!",
+        shareMessage: "நண்பர்கள் மற்றும் குடும்பத்துடன் பகிரவும்!",
+        courseNumberLabel: "பாடநெறி எண்",
+        classesStartLabel: "வகுப்புகள் தொடக்கம்",
+        startDate: "24 மே 2023",
+        aboutAria: "பற்றி",
+        about: "பற்றி",
+        contact: "தொடர்பு",
+        organizationLogo: "நிறுவன லோகோ",
+        copyright: "© ஈஷா பயிற்சி. குறிப்பிடப்பட்ட இடங்களைத் தவிர அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை. edX, Open edX மற்றும் அவற்றின் தொடர்புடைய லோகோக்கள் edX Inc. நிறுவனத்தின் பதிவு செய்யப்பட்ட வர்த்தகச் சின்னங்கள்.",
+        legalAria: "சட்டம்",
+        tos: "சேவை விதிமுறைகள்",
+        indigoTheme: "Open edX க்கான Indigo தீம்",
+        runsOnTutor: "Tutor மூலம் இயங்குகிறது",
+        poweredByOpenedx: "Open edX மூலம் இயக்கப்படுகிறது"
+      }
+    };
+
+    const languageSelect = document.getElementById("languageSelect");
+    const languageSelectMobile = document.getElementById("languageSelectMobile");
+    const hamburger = document.querySelector(".hamburger-menu");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const mainEnrollButton = document.getElementById("mainEnrollButton");
+    const sidebarEnrollButton = document.getElementById("sidebarEnrollButton");
+    const secondaryCourseButton = document.getElementById("secondaryCourseButton");
+    const registerNote = document.getElementById("registerNote");
+    const headerRegisterLink = document.getElementById("headerRegisterLink");
+    const headerSignInLink = document.getElementById("headerSignInLink");
+    const mobileRegisterLink = document.getElementById("mobileRegisterLink");
+    const mobileSignInLink = document.getElementById("mobileSignInLink");
+    const startDate = document.getElementById("startDate");
+    const shareTwitter = document.getElementById("shareTwitter");
+    const shareFacebook = document.getElementById("shareFacebook");
+    const shareEmail = document.getElementById("shareEmail");
+
+    let isSignedIn = false;
+
+    function getCurrentLang(){
+      return localStorage.getItem("ishaTrainingLang") || "en";
+    }
+
+    function setLanguage(lang){
+      const safeLang = translations[lang] ? lang : "en";
+      const t = translations[safeLang];
+
+      localStorage.setItem("ishaTrainingLang", safeLang);
+      document.documentElement.lang = t.htmlLang;
+      document.body.className = `ltr lang_${safeLang}`;
+      languageSelect.value = safeLang;
+      languageSelectMobile.value = safeLang;
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if(t[key]) el.textContent = t[key];
+      });
+
+      document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+        const key = el.getAttribute("data-i18n-aria");
+        if(t[key]) el.setAttribute("aria-label", t[key]);
+      });
+
+      document.querySelectorAll("[data-i18n-alt]").forEach(el => {
+        const key = el.getAttribute("data-i18n-alt");
+        if(t[key]) el.setAttribute("alt", t[key]);
+      });
+
+      startDate.textContent = t.startDate;
+      updateAuthUi();
+      updateShareLinks();
+    }
+
+    function getCourseUrl(){
+      return new URL("course-details.html", window.location.href).href;
+    }
+
+    function updateShareLinks(){
+      const t = translations[getCurrentLang()];
+      const courseUrl = encodeURIComponent(getCourseUrl());
+      const text = encodeURIComponent(`${t.courseTitle} | Isha Training`);
+      shareTwitter.href = `https://twitter.com/intent/tweet?text=${text}&url=${courseUrl}`;
+      shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${courseUrl}`;
+      shareEmail.href = `mailto:?subject=${encodeURIComponent(t.courseTitle)}&body=${encodeURIComponent(`${t.courseTitle}\n${getCourseUrl()}`)}`;
+    }
+
+    function updateAuthUi(){
+      const t = translations[getCurrentLang()];
+
+      if(isSignedIn){
+        mainEnrollButton.href = "dashboard.html";
+        mainEnrollButton.textContent = t.continueTraining;
+        sidebarEnrollButton.href = "dashboard.html";
+        sidebarEnrollButton.textContent = t.goToDashboard;
+        secondaryCourseButton.href = "dashboard.html";
+        secondaryCourseButton.textContent = t.goToDashboard;
+        registerNote.textContent = t.dashboardNote;
+
+        headerRegisterLink.href = "dashboard.html";
+        headerRegisterLink.textContent = t.dashboard;
+        headerSignInLink.href = "login.html?logout=1";
+        headerSignInLink.textContent = t.logout;
+
+        mobileRegisterLink.href = "dashboard.html";
+        mobileRegisterLink.textContent = t.dashboard;
+        mobileSignInLink.href = "login.html?logout=1";
+        mobileSignInLink.textContent = t.logout;
+        return;
+      }
+
+      mainEnrollButton.href = "registration.html";
+      mainEnrollButton.textContent = t.enrollNow;
+      sidebarEnrollButton.href = "registration.html";
+      sidebarEnrollButton.textContent = t.enrollNow;
+      secondaryCourseButton.href = "login.html";
+      secondaryCourseButton.textContent = t.alreadyRegistered;
+      registerNote.textContent = t.registerNote;
+
+      headerRegisterLink.href = "registration.html";
+      headerRegisterLink.textContent = t.register;
+      headerSignInLink.href = "login.html";
+      headerSignInLink.textContent = t.signIn;
+
+      mobileRegisterLink.href = "registration.html";
+      mobileRegisterLink.textContent = t.register;
+      mobileSignInLink.href = "login.html";
+      mobileSignInLink.textContent = t.signIn;
+    }
+
+    async function checkSession(){
+      if(!window.supabaseClient) return;
+
+      try{
+        const { data } = await supabase.auth.getSession();
+        isSignedIn = !!(data && data.session);
+        updateAuthUi();
+      }catch(error){
+        isSignedIn = false;
+        updateAuthUi();
+      }
+    }
+
+    function toggleMobileMenu(){
+      const isOpen = mobileMenu.classList.toggle("open");
+      mobileMenu.classList.toggle("hidden", !isOpen);
+      hamburger.setAttribute("aria-expanded", String(isOpen));
+    }
+
+    languageSelect.addEventListener("change", event => setLanguage(event.target.value));
+    languageSelectMobile.addEventListener("change", event => setLanguage(event.target.value));
+
+    hamburger.addEventListener("click", toggleMobileMenu);
+    hamburger.addEventListener("keydown", event => {
+      if(event.key === "Enter" || event.key === " "){
+        event.preventDefault();
+        toggleMobileMenu();
+      }
+    });
+
+    setLanguage(getCurrentLang());
+    checkSession();
+  </script>
+</body>
+</html>
