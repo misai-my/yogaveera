@@ -431,7 +431,7 @@
     .video-footer{
       display:flex;
       align-items:center;
-      justify-content:space-between;
+      justify-content:flex-start;
       flex-wrap:wrap;
       gap:12px;
       padding:18px 24px;
@@ -688,16 +688,14 @@
               <h2 data-i18n="videoTitle">Training Video</h2>
               <div class="video-meta" data-i18n="videoMeta">The video is available after the session starts.</div>
             </div>
-            <a class="btn btn-muted" href="training.html" data-i18n="backToTraining">Back to Training</a>
           </div>
 
           <div class="video-shell">
-            <video id="trainingVideo" controls controlsList="nodownload" playsinline preload="metadata"></video>
+            <video id="trainingVideo" playsinline preload="metadata" disablepictureinpicture></video>
           </div>
 
           <div class="video-footer">
             <div class="small-note" data-i18n="videoNote">Your progress is saved on this device. Keep this page open while watching.</div>
-            <button id="markCompleteButton" class="btn btn-primary" type="button" data-i18n="markComplete">Mark as Complete</button>
           </div>
         </section>
 
@@ -770,9 +768,7 @@
         restartSession: "Restart Session",
         videoTitle: "Training Video",
         videoMeta: "The video is available after the session starts.",
-        backToTraining: "Back to Training",
-        videoNote: "Your progress is saved on this device. Keep this page open while watching.",
-        markComplete: "Mark as Complete",
+        videoNote: "Your progress is saved on this device. The video controls are disabled for training order.",
         completeTitle: "Training Complete!",
         completeSubtitle: "Congratulations on completing your training. You can now continue to the next step.",
         viewResources: "View Resources",
@@ -821,9 +817,7 @@
         restartSession: "அமர்வை மீண்டும் தொடங்கவும்",
         videoTitle: "பயிற்சி வீடியோ",
         videoMeta: "அமர்வு தொடங்கிய பிறகு வீடியோ கிடைக்கும்.",
-        backToTraining: "பயிற்சிக்கு திரும்பவும்",
-        videoNote: "உங்கள் முன்னேற்றம் இந்த சாதனத்தில் சேமிக்கப்படும். பார்க்கும் போது இந்தப் பக்கத்தை திறந்தே வைத்திருக்கவும்.",
-        markComplete: "நிறைவு செய்ததாக குறிக்கவும்",
+        videoNote: "உங்கள் முன்னேற்றம் இந்த சாதனத்தில் சேமிக்கப்படும். பயிற்சி வரிசைக்காக வீடியோ கட்டுப்பாடுகள் முடக்கப்பட்டுள்ளன.",
         completeTitle: "பயிற்சி நிறைவு!",
         completeSubtitle: "உங்கள் பயிற்சியை முடித்ததற்கு வாழ்த்துகள். இப்போது அடுத்த படிக்கு தொடரலாம்.",
         viewResources: "வளங்களைப் பார்க்கவும்",
@@ -857,7 +851,6 @@
     const startButton = document.getElementById("startButton");
     const resumeButton = document.getElementById("resumeButton");
     const restartButton = document.getElementById("restartButton");
-    const markCompleteButton = document.getElementById("markCompleteButton");
     const progressValue = document.getElementById("progressValue");
     const languageValue = document.getElementById("languageValue");
 
@@ -1050,6 +1043,17 @@
       }
     }
 
+
+    async function playTrainingVideo(){
+      if(!trainingVideo) return;
+
+      try{
+        await trainingVideo.play();
+      }catch(error){
+        console.warn("Autoplay blocked or delayed until video is ready.", error);
+      }
+    }
+
     function startSession(mode = "start"){
       const t = translations[getCurrentLang()];
 
@@ -1059,6 +1063,7 @@
       videoCard.classList.add("show");
       loadVideo();
       updateSessionUi();
+      playTrainingVideo();
 
       if(mode === "restart"){
         localStorage.setItem(STORAGE_KEYS.progress, "0");
@@ -1187,12 +1192,20 @@
     startButton.addEventListener("click", () => startSession("start"));
     resumeButton.addEventListener("click", () => startSession("resume"));
     restartButton.addEventListener("click", () => startSession("restart"));
-    markCompleteButton.addEventListener("click", markComplete);
 
     trainingVideo.addEventListener("seeking", preventForwardSeek);
     trainingVideo.addEventListener("seeked", preventForwardSeek);
     trainingVideo.addEventListener("timeupdate", saveVideoProgress);
     trainingVideo.addEventListener("ended", markComplete);
+
+    trainingVideo.addEventListener("click", () => {
+      if(trainingVideo.paused){
+        playTrainingVideo();
+      }else{
+        trainingVideo.pause();
+      }
+    });
+
 
     setLanguage(getCurrentLang());
     redirectIfNotSignedIn();
