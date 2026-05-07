@@ -426,6 +426,8 @@
       width:100%;
       max-height:72vh;
       background:#111827;
+      pointer-events:none;
+      user-select:none;
     }
 
     .video-footer{
@@ -691,7 +693,7 @@
           </div>
 
           <div class="video-shell">
-            <video id="trainingVideo" playsinline preload="metadata" disablepictureinpicture></video>
+            <video id="trainingVideo" playsinline preload="metadata" disablepictureinpicture oncontextmenu="return false;"></video>
           </div>
 
           <div class="video-footer">
@@ -1198,13 +1200,6 @@
     trainingVideo.addEventListener("timeupdate", saveVideoProgress);
     trainingVideo.addEventListener("ended", markComplete);
 
-    trainingVideo.addEventListener("click", () => {
-      if(trainingVideo.paused){
-        playTrainingVideo();
-      }else{
-        trainingVideo.pause();
-      }
-    });
 
 
     setLanguage(getCurrentLang());
