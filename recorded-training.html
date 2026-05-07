@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recorded Training | Isha Yogaveera Training</title>
+  <link rel="icon" type="image/x-icon" href="https://training.ishayoga.eu/static/indigo/images/favicon.049a0f1a2bb1.ico" />
+
+  <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    html,
+    body{
+      margin:0;
+      padding:0;
+      min-height:100%;
+      color:#1f2933;
+      background:#f9fafb;
+      font-family:"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size:16px;
+      line-height:1.5;
+    }
+
+    body{
+      min-height:100vh;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:none;
+    }
+
+    .page{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      background:#f9fafb;
+    }
+
+    .portal-header{
+      background:#5d4037;
+      color:#fff;
+      box-shadow:0 2px 8px rgba(0,0,0,.18);
+    }
+
+    .header-inner{
+      width:100%;
+      min-height:70px;
+      display:flex;
+      align-items:stretch;
+      justify-content:space-between;
+    }
+
+    .brand-link{
+      display:flex;
+      align-items:center;
+      padding:6px 12px;
+    }
+
+    .brand-link img{
+      display:block;
+      width:auto;
+      max-width:180px;
+      height:58px;
+      object-fit:contain;
+    }
+
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:0;
+    }
+
+    .header-link,
+    .header-button,
+    .language-select{
+      min-height:70px;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:0 16px;
+      border:0;
+      background:transparent;
+      color:#fff;
+      font:inherit;
+      font-size:14px;
+      font-weight:600;
+      cursor:pointer;
+      transition:opacity .18s ease, background .18s ease;
+    }
+
+    .header-link:hover,
+    .header-button:hover{
+      opacity:.82;
+      background:rgba(255,255,255,.06);
+    }
+
+    .language-wrap{
+      position:relative;
+      min-height:70px;
+      display:flex;
+      align-items:center;
+      padding:0 12px;
+    }
+
+    .language-wrap label{
+      margin-right:8px;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .language-wrap select{
+      height:36px;
+      border:1px solid rgba(255,255,255,.38);
+      border-radius:4px;
+      background:#fff;
+      color:#333;
+      padding:0 9px;
+      font:inherit;
+      cursor:pointer;
+    }
+
+    .main{
+      flex:1 0 auto;
+      width:100%;
+      max-width:1160px;
+      margin:0 auto;
+      padding:38px 24px 64px;
+    }
+
+    .loading-card{
+      max-width:420px;
+      margin:60px auto;
+      text-align:center;
+      color:#6b7280;
+    }
+
+    .spinner{
+      height:34px;
+      width:34px;
+      margin:0 auto 14px;
+      border-radius:999px;
+      border:4px solid #d1d5db;
+      border-top-color:#991b1b;
+      animation:spin .85s linear infinite;
+    }
+
+    @keyframes spin{
+      to{ transform:rotate(360deg); }
+    }
+
+    .content{
+      display:none;
+      gap:26px;
+    }
+
+    .content.show{
+      display:grid;
+    }
+
+    .top-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .back-link{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      color:#5d4037;
+      font-weight:700;
+      font-size:14px;
+    }
+
+    .status-pill{
+      display:inline-flex;
+      align-items:center;
+      min-height:34px;
+      padding:6px 12px;
+      border-radius:999px;
+      border:1px solid #e5e7eb;
+      background:#fff;
+      color:#6b7280;
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .hero-card,
+    .guidelines-card,
+    .video-card,
+    .complete-card{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      box-shadow:0 2px 8px rgba(17,24,39,.08);
+    }
+
+    .hero-card{
+      overflow:hidden;
+    }
+
+    .hero-inner{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 330px;
+      gap:28px;
+      align-items:center;
+      padding:34px;
+    }
+
+    .eyebrow{
+      margin:0 0 10px;
+      color:#991b1b;
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+    }
+
+    h1{
+      margin:0 0 12px;
+      color:#111827;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:42px;
+      line-height:1.12;
+      font-weight:400;
+    }
+
+    .hero-copy p{
+      margin:0;
+      color:#4b5563;
+      font-size:16px;
+      line-height:1.7;
+    }
+
+    .hero-image{
+      border-radius:10px;
+      overflow:hidden;
+      border:1px solid #e5e7eb;
+      background:#f3f4f6;
+    }
+
+    .hero-image img{
+      display:block;
+      width:100%;
+      aspect-ratio:16/9;
+      object-fit:cover;
+    }
+
+    .progress-strip{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:1px;
+      background:#e5e7eb;
+      border-top:1px solid #e5e7eb;
+    }
+
+    .progress-item{
+      background:#fdfdfd;
+      padding:18px 24px;
+    }
+
+    .progress-label{
+      display:block;
+      color:#6b7280;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+
+    .progress-value{
+      display:block;
+      margin-top:4px;
+      color:#111827;
+      font-size:15px;
+      font-weight:800;
+    }
+
+    .guidelines-card,
+    .complete-card{
+      padding:28px;
+    }
+
+    .section-heading{
+      margin:0 0 18px;
+      color:#111827;
+      font-size:26px;
+      line-height:1.25;
+    }
+
+    .guidelines-list{
+      list-style:none;
+      margin:0;
+      padding:0;
+      display:grid;
+      gap:14px;
+    }
+
+    .guidelines-list li{
+      display:grid;
+      grid-template-columns:34px minmax(0,1fr);
+      gap:12px;
+      color:#374151;
+      line-height:1.65;
+    }
+
+    .guide-icon{
+      width:30px;
+      height:30px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#fef2f2;
+      border:1px solid #fecaca;
+      color:#991b1b;
+      font-weight:800;
+      font-size:13px;
+    }
+
+    .session-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:24px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      padding:10px 18px;
+      border-radius:8px;
+      border:1px solid #5d4037;
+      font-weight:800;
+      line-height:1.2;
+      text-decoration:none;
+      cursor:pointer;
+      transition:background .18s ease, color .18s ease, border-color .18s ease, opacity .18s ease;
+      font:inherit;
+    }
+
+    .btn-primary{
+      background:#5d4037;
+      color:#fff;
+    }
+
+    .btn-primary:hover{
+      background:#4a312a;
+      border-color:#4a312a;
+    }
+
+    .btn-secondary{
+      background:#fff;
+      color:#5d4037;
+    }
+
+    .btn-secondary:hover{
+      background:#f7f2f0;
+    }
+
+    .btn-muted{
+      background:#fff;
+      color:#374151;
+      border-color:#d1d5db;
+    }
+
+    .btn-muted:hover{
+      background:#f3f4f6;
+    }
+
+    .btn:disabled{
+      opacity:.68;
+      cursor:not-allowed;
+    }
+
+    .video-card{
+      display:none;
+      overflow:hidden;
+    }
+
+    .video-card.show{
+      display:block;
+    }
+
+    .video-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:22px 24px;
+      border-bottom:1px solid #e5e7eb;
+    }
+
+    .video-header h2{
+      margin:0;
+      color:#111827;
+      font-size:24px;
+      line-height:1.25;
+    }
+
+    .video-meta{
+      color:#6b7280;
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .video-shell{
+      background:#111827;
+      padding:0;
+    }
+
+    video{
+      display:block;
+      width:100%;
+      max-height:72vh;
+      background:#111827;
+    }
+
+    .video-footer{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:12px;
+      padding:18px 24px;
+      border-top:1px solid #e5e7eb;
+      background:#fff;
+    }
+
+    .small-note{
+      color:#6b7280;
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    .complete-card{
+      display:none;
+      border-color:#bbf7d0;
+      background:#f0fdf4;
+    }
+
+    .complete-card.show{
+      display:block;
+    }
+
+    .complete-card h2{
+      margin:0 0 8px;
+      color:#14532d;
+      font-size:26px;
+    }
+
+    .complete-card p{
+      margin:0 0 18px;
+      color:#166534;
+      line-height:1.65;
+    }
+
+    .status-message{
+      display:none;
+      padding:13px 14px;
+      border-radius:8px;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .status-message.show{
+      display:block;
+    }
+
+    .status-message.error{
+      color:#842029;
+      background:#f8d7da;
+      border:1px solid #f5c2c7;
+    }
+
+    .status-message.info{
+      color:#055160;
+      background:#cff4fc;
+      border:1px solid #b6effb;
+    }
+
+    .footer{
+      background:#fff;
+      border-top:1px solid #e5e7eb;
+      color:#6b7280;
+      font-size:13px;
+    }
+
+    .footer-inner{
+      max-width:1160px;
+      margin:0 auto;
+      padding:24px;
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .footer-links{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .footer-links a{
+      color:#5d4037;
+      font-weight:700;
+    }
+
+    @media (max-width:900px){
+      .hero-inner,
+      .progress-strip{
+        grid-template-columns:1fr;
+      }
+
+      .hero-image{
+        max-width:520px;
+      }
+    }
+
+    @media (max-width:700px){
+      .header-inner{
+        min-height:64px;
+      }
+
+      .brand-link img{
+        max-width:142px;
+        height:48px;
+      }
+
+      .header-link,
+      .header-button{
+        min-height:64px;
+        padding:0 10px;
+        font-size:13px;
+      }
+
+      .language-wrap{
+        min-height:64px;
+        padding:0 8px;
+      }
+
+      .language-wrap label{
+        display:none;
+      }
+
+      .language-wrap select{
+        width:94px;
+      }
+
+      .main{
+        padding:26px 18px 48px;
+      }
+
+      .hero-inner,
+      .guidelines-card,
+      .complete-card{
+        padding:24px 20px;
+      }
+
+      h1{
+        font-size:32px;
+      }
+
+      .video-header,
+      .video-footer{
+        align-items:flex-start;
+        flex-direction:column;
+        padding:18px 20px;
+      }
+
+      .session-actions{
+        display:grid;
+      }
+
+      .session-actions .btn,
+      .video-footer .btn,
+      .complete-card .btn{
+        width:100%;
+      }
+    }
+  </style>
+</head>
+<body class="ltr lang_en">
+  <div class="page">
+    <header class="portal-header">
+      <div class="header-inner">
+        <a class="brand-link" href="dashboard.html" aria-label="Isha Yogaveera Training Dashboard" data-i18n-aria="dashboardAria">
+          <img src="https://training.ishayoga.eu/static/indigo/images/logo.45c36d811e2d.png" alt="Isha Yogaveera Training" data-i18n-alt="brandAlt" />
+        </a>
+
+        <div class="header-actions">
+          <a class="header-link" href="dashboard.html" data-i18n="home">Home</a>
+          <div class="language-wrap">
+            <label for="languageSelect" data-i18n="language">Language</label>
+            <select id="languageSelect" aria-label="Language">
+              <option value="en">English</option>
+              <option value="ta">தமிழ்</option>
+            </select>
+          </div>
+          <button id="logoutButton" class="header-button" type="button" data-i18n="logout">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div id="loadingCard" class="loading-card">
+        <div class="spinner" aria-hidden="true"></div>
+        <p data-i18n="loading">Loading...</p>
+      </div>
+
+      <section id="content" class="content" aria-label="Recorded training">
+        <div class="top-row">
+          <a class="back-link" href="training.html" data-i18n="back">← Back</a>
+          <span id="statusPill" class="status-pill" data-i18n="notStarted">Not started</span>
+        </div>
+
+        <section class="hero-card">
+          <div class="hero-inner">
+            <div class="hero-copy">
+              <p class="eyebrow" data-i18n="typeRecorded">Recorded</p>
+              <h1 data-i18n="title">Online Yogaveera Training</h1>
+              <p data-i18n="subtitle">Please review the guidelines below. The recorded training video will appear once you start the session.</p>
+            </div>
+
+            <div class="hero-image">
+              <img src="https://training.ishayoga.eu/asset-v1:Isha+CS001+2023+type@asset+block@Using_an_Online_Platform__Google_Meet_Tutorial.png" alt="Online Yogaveera Training" data-i18n-alt="title" />
+            </div>
+          </div>
+
+          <div class="progress-strip">
+            <div class="progress-item">
+              <span class="progress-label" data-i18n="durationLabel">Duration</span>
+              <span class="progress-value" data-i18n="durationValue">1.5 hours</span>
+            </div>
+            <div class="progress-item">
+              <span class="progress-label" data-i18n="languageLabel">Language</span>
+              <span id="languageValue" class="progress-value">English</span>
+            </div>
+            <div class="progress-item">
+              <span class="progress-label" data-i18n="progressLabel">Progress</span>
+              <span id="progressValue" class="progress-value">0%</span>
+            </div>
+          </div>
+        </section>
+
+        <div id="statusMessage" class="status-message" role="status" aria-live="polite"></div>
+
+        <section id="guidelinesCard" class="guidelines-card">
+          <h2 class="section-heading" data-i18n="guidelines">Guidelines</h2>
+          <ul class="guidelines-list">
+            <li>
+              <span class="guide-icon">1</span>
+              <span data-i18n="guidelineTime">Please ensure you allocate one and half hour of undisturbed time to complete the training.</span>
+            </li>
+            <li>
+              <span class="guide-icon">2</span>
+              <span data-i18n="guidelineMaterial">You will receive the material to host the sessions after you complete this training session.</span>
+            </li>
+            <li>
+              <span class="guide-icon">3</span>
+              <span data-i18n="guidelineContact">For any questions about the training or about hosting sessions, please contact support.</span>
+            </li>
+          </ul>
+
+          <div class="session-actions">
+            <button id="startButton" class="btn btn-primary" type="button" data-i18n="startSession">Start Session</button>
+            <button id="resumeButton" class="btn btn-secondary" type="button" data-i18n="resumeSession" style="display:none;">Resume Session</button>
+            <button id="restartButton" class="btn btn-muted" type="button" data-i18n="restartSession" style="display:none;">Restart Session</button>
+          </div>
+        </section>
+
+        <section id="videoCard" class="video-card" aria-label="Training video">
+          <div class="video-header">
+            <div>
+              <h2 data-i18n="videoTitle">Training Video</h2>
+              <div class="video-meta" data-i18n="videoMeta">The video is available after the session starts.</div>
+            </div>
+            <a class="btn btn-muted" href="training.html" data-i18n="backToTraining">Back to Training</a>
+          </div>
+
+          <div class="video-shell">
+            <video id="trainingVideo" controls controlsList="nodownload" playsinline preload="metadata"></video>
+          </div>
+
+          <div class="video-footer">
+            <div class="small-note" data-i18n="videoNote">Your progress is saved on this device. Keep this page open while watching.</div>
+            <button id="markCompleteButton" class="btn btn-primary" type="button" data-i18n="markComplete">Mark as Complete</button>
+          </div>
+        </section>
+
+        <section id="completeCard" class="complete-card">
+          <h2 data-i18n="completeTitle">Training Complete!</h2>
+          <p data-i18n="completeSubtitle">Congratulations on completing your training. You can now continue to the next step.</p>
+          <a class="btn btn-primary" href="work-in-progress.html" data-i18n="viewResources">View Resources</a>
+        </section>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div data-i18n="copyright">© Isha Yogaveera Training. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="work-in-progress.html" data-i18n="about">About</a>
+          <a href="work-in-progress.html" data-i18n="contact">Contact</a>
+          <a href="work-in-progress.html" data-i18n="tos">Terms of service</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script type="module">
+    import "./supabase-config.js";
+
+    const supabase = window.supabaseClient;
+
+    const VIDEO_SOURCES = {
+      en: "https://isha-apac.b-cdn.net/yogaveera-training/Training/v1/en/playlist.m3u8",
+      ta: "https://isha-apac.b-cdn.net/yogaveera-training/Training/v1/en/playlist.m3u8"
+    };
+
+    const STORAGE_KEYS = {
+      started: "yv_recorded_training_started",
+      completed: "yv_recorded_training_completed",
+      progress: "yv_recorded_training_progress_seconds",
+      percent: "yv_recorded_training_progress_percent"
+    };
+
+    const translations = {
+      en: {
+        htmlLang: "en",
+        dashboardAria: "Isha Yogaveera Training Dashboard",
+        brandAlt: "Isha Yogaveera Training",
+        home: "Home",
+        language: "Language",
+        logout: "Logout",
+        loggingOut: "Logging out...",
+        loading: "Loading...",
+        back: "← Back",
+        notStarted: "Not started",
+        inProgress: "In progress",
+        completed: "Completed",
+        typeRecorded: "Recorded",
+        title: "Online Yogaveera Training",
+        subtitle: "Please review the guidelines below. The recorded training video will appear once you start the session.",
+        durationLabel: "Duration",
+        durationValue: "1.5 hours",
+        languageLabel: "Language",
+        progressLabel: "Progress",
+        guidelines: "Guidelines",
+        guidelineTime: "Please ensure you allocate one and half hour of undisturbed time to complete the training.",
+        guidelineMaterial: "You will receive the material to host the sessions after you complete this training session.",
+        guidelineContact: "For any questions about the training or about hosting sessions, please contact support.",
+        startSession: "Start Session",
+        resumeSession: "Resume Session",
+        restartSession: "Restart Session",
+        videoTitle: "Training Video",
+        videoMeta: "The video is available after the session starts.",
+        backToTraining: "Back to Training",
+        videoNote: "Your progress is saved on this device. Keep this page open while watching.",
+        markComplete: "Mark as Complete",
+        completeTitle: "Training Complete!",
+        completeSubtitle: "Congratulations on completing your training. You can now continue to the next step.",
+        viewResources: "View Resources",
+        sessionStarted: "Session started. The training video is now available.",
+        sessionResumed: "Session resumed.",
+        sessionRestarted: "Session restarted from the beginning.",
+        completionSaved: "Training marked as complete.",
+        configError: "Supabase is not configured. Please check supabase-config.js.",
+        authRequired: "Please sign in to access the recorded training.",
+        videoError: "Unable to load the training video. Please check the video link or try again later.",
+        logoutError: "Unable to log out. Please try again.",
+        copyright: "© Isha Yogaveera Training. All rights reserved.",
+        about: "About",
+        contact: "Contact",
+        tos: "Terms of service",
+        english: "English",
+        tamil: "Tamil"
+      },
+      ta: {
+        htmlLang: "ta",
+        dashboardAria: "ஈஷா யோக வீரா பயிற்சி டாஷ்போர்டு",
+        brandAlt: "ஈஷா யோக வீரா பயிற்சி",
+        home: "முகப்பு",
+        language: "மொழி",
+        logout: "வெளியேறு",
+        loggingOut: "வெளியேறுகிறது...",
+        loading: "ஏற்றுகிறது...",
+        back: "← திரும்பவும்",
+        notStarted: "தொடங்கப்படவில்லை",
+        inProgress: "நடைபெறுகிறது",
+        completed: "நிறைவு செய்யப்பட்டது",
+        typeRecorded: "பதிவு செய்யப்பட்ட பயிற்சி",
+        title: "ஆன்லைன் யோக வீரா பயிற்சி",
+        subtitle: "கீழே உள்ள வழிகாட்டுதல்களைப் பார்க்கவும். நீங்கள் அமர்வை தொடங்கிய பிறகு பதிவு செய்யப்பட்ட பயிற்சி வீடியோ தோன்றும்.",
+        durationLabel: "கால அளவு",
+        durationValue: "1.5 மணி நேரம்",
+        languageLabel: "மொழி",
+        progressLabel: "முன்னேற்றம்",
+        guidelines: "வழிகாட்டுதல்கள்",
+        guidelineTime: "பயிற்சியை முடிக்க குறைந்தது ஒன்றரை மணி நேரம் இடையூறு இல்லாத நேரத்தை ஒதுக்கி வைத்திருக்கவும்.",
+        guidelineMaterial: "இந்த பயிற்சி அமர்வை முடித்த பிறகு, அமர்வுகளை நடத்த தேவையான பொருட்களைப் பெறுவீர்கள்.",
+        guidelineContact: "பயிற்சி அல்லது அமர்வுகளை நடத்துவது குறித்து ஏதேனும் கேள்விகள் இருந்தால், தயவுசெய்து ஆதரவைத் தொடர்பு கொள்ளவும்.",
+        startSession: "அமர்வை தொடங்கவும்",
+        resumeSession: "அமர்வைத் தொடரவும்",
+        restartSession: "அமர்வை மீண்டும் தொடங்கவும்",
+        videoTitle: "பயிற்சி வீடியோ",
+        videoMeta: "அமர்வு தொடங்கிய பிறகு வீடியோ கிடைக்கும்.",
+        backToTraining: "பயிற்சிக்கு திரும்பவும்",
+        videoNote: "உங்கள் முன்னேற்றம் இந்த சாதனத்தில் சேமிக்கப்படும். பார்க்கும் போது இந்தப் பக்கத்தை திறந்தே வைத்திருக்கவும்.",
+        markComplete: "நிறைவு செய்ததாக குறிக்கவும்",
+        completeTitle: "பயிற்சி நிறைவு!",
+        completeSubtitle: "உங்கள் பயிற்சியை முடித்ததற்கு வாழ்த்துகள். இப்போது அடுத்த படிக்கு தொடரலாம்.",
+        viewResources: "வளங்களைப் பார்க்கவும்",
+        sessionStarted: "அமர்வு தொடங்கியது. பயிற்சி வீடியோ இப்போது கிடைக்கிறது.",
+        sessionResumed: "அமர்வு தொடரப்பட்டது.",
+        sessionRestarted: "அமர்வு ஆரம்பத்திலிருந்து மீண்டும் தொடங்கப்பட்டது.",
+        completionSaved: "பயிற்சி நிறைவு செய்ததாக குறிக்கப்பட்டது.",
+        configError: "Supabase அமைக்கப்படவில்லை. supabase-config.js ஐச் சரிபார்க்கவும்.",
+        authRequired: "பதிவு செய்யப்பட்ட பயிற்சியை அணுக தயவுசெய்து உள்நுழையவும்.",
+        videoError: "பயிற்சி வீடியோவை ஏற்ற முடியவில்லை. வீடியோ இணைப்பைச் சரிபார்க்கவும் அல்லது பின்னர் மீண்டும் முயற்சிக்கவும்.",
+        logoutError: "வெளியேற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+        copyright: "© ஈஷா யோக வீரா பயிற்சி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
+        about: "பற்றி",
+        contact: "தொடர்பு",
+        tos: "சேவை விதிமுறைகள்",
+        english: "ஆங்கிலம்",
+        tamil: "தமிழ்"
+      }
+    };
+
+    const languageSelect = document.getElementById("languageSelect");
+    const logoutButton = document.getElementById("logoutButton");
+    const loadingCard = document.getElementById("loadingCard");
+    const content = document.getElementById("content");
+    const statusPill = document.getElementById("statusPill");
+    const statusMessage = document.getElementById("statusMessage");
+    const videoCard = document.getElementById("videoCard");
+    const completeCard = document.getElementById("completeCard");
+    const trainingVideo = document.getElementById("trainingVideo");
+    const startButton = document.getElementById("startButton");
+    const resumeButton = document.getElementById("resumeButton");
+    const restartButton = document.getElementById("restartButton");
+    const markCompleteButton = document.getElementById("markCompleteButton");
+    const progressValue = document.getElementById("progressValue");
+    const languageValue = document.getElementById("languageValue");
+
+    let hlsInstance = null;
+    let currentUser = null;
+    let hasLoadedVideo = false;
+
+    function getCurrentLang(){
+      return localStorage.getItem("ishaTrainingLang") || "en";
+    }
+
+    function getLoginUrl(params = ""){
+      const url = new URL("login.html", window.location.href);
+      if(params){
+        const searchParams = new URLSearchParams(params);
+        searchParams.forEach((value, key) => url.searchParams.set(key, value));
+      }
+      return url.href;
+    }
+
+    function getPreferredLanguage(user){
+      if(!user) return getCurrentLang();
+      const meta = user.user_metadata || {};
+      return translations[meta.preferred_language] ? meta.preferred_language : getCurrentLang();
+    }
+
+    function setLanguage(lang){
+      const safeLang = translations[lang] ? lang : "en";
+      const t = translations[safeLang];
+
+      localStorage.setItem("ishaTrainingLang", safeLang);
+      document.documentElement.lang = t.htmlLang;
+      document.body.className = `ltr lang_${safeLang}`;
+      languageSelect.value = safeLang;
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if(t[key]) el.textContent = t[key];
+      });
+
+      document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+        const key = el.getAttribute("data-i18n-aria");
+        if(t[key]) el.setAttribute("aria-label", t[key]);
+      });
+
+      document.querySelectorAll("[data-i18n-alt]").forEach(el => {
+        const key = el.getAttribute("data-i18n-alt");
+        if(t[key]) el.setAttribute("alt", t[key]);
+      });
+
+      languageValue.textContent = safeLang === "ta" ? t.tamil : t.english;
+      updateProgressUi();
+      updateSessionUi();
+    }
+
+    function showStatus(type, message){
+      statusMessage.className = `status-message show ${type}`;
+      statusMessage.textContent = message;
+    }
+
+    function clearStatus(){
+      statusMessage.className = "status-message";
+      statusMessage.textContent = "";
+    }
+
+    function hasStarted(){
+      return localStorage.getItem(STORAGE_KEYS.started) === "1";
+    }
+
+    function hasCompleted(){
+      return localStorage.getItem(STORAGE_KEYS.completed) === "1";
+    }
+
+    function getSavedProgress(){
+      const saved = Number(localStorage.getItem(STORAGE_KEYS.progress) || "0");
+      return Number.isFinite(saved) ? saved : 0;
+    }
+
+    function getSavedPercent(){
+      const saved = Number(localStorage.getItem(STORAGE_KEYS.percent) || "0");
+      return Number.isFinite(saved) ? Math.max(0, Math.min(100, Math.round(saved))) : 0;
+    }
+
+    function updateProgressUi(){
+      const percent = hasCompleted() ? 100 : getSavedPercent();
+      progressValue.textContent = `${percent}%`;
+    }
+
+    function updateSessionUi(){
+      const t = translations[getCurrentLang()];
+
+      if(hasCompleted()){
+        statusPill.textContent = t.completed;
+        startButton.style.display = "none";
+        resumeButton.style.display = "inline-flex";
+        restartButton.style.display = "inline-flex";
+        completeCard.classList.add("show");
+        return;
+      }
+
+      if(hasStarted()){
+        statusPill.textContent = t.inProgress;
+        startButton.style.display = "none";
+        resumeButton.style.display = "inline-flex";
+        restartButton.style.display = "inline-flex";
+        completeCard.classList.remove("show");
+        return;
+      }
+
+      statusPill.textContent = t.notStarted;
+      startButton.style.display = "inline-flex";
+      resumeButton.style.display = "none";
+      restartButton.style.display = "none";
+      videoCard.classList.remove("show");
+      completeCard.classList.remove("show");
+    }
+
+    function loadVideo(){
+      if(hasLoadedVideo) return;
+
+      const t = translations[getCurrentLang()];
+      const videoSrc = VIDEO_SOURCES[getCurrentLang()] || VIDEO_SOURCES.en;
+
+      try{
+        if(window.Hls && window.Hls.isSupported()){
+          hlsInstance = new window.Hls();
+          hlsInstance.loadSource(videoSrc);
+          hlsInstance.attachMedia(trainingVideo);
+          hlsInstance.on(window.Hls.Events.ERROR, function(event, data){
+            if(data && data.fatal){
+              showStatus("error", t.videoError);
+            }
+          });
+        }else if(trainingVideo.canPlayType("application/vnd.apple.mpegurl")){
+          trainingVideo.src = videoSrc;
+        }else{
+          showStatus("error", t.videoError);
+          return;
+        }
+
+        hasLoadedVideo = true;
+
+        trainingVideo.addEventListener("loadedmetadata", () => {
+          const savedTime = getSavedProgress();
+          if(savedTime > 0 && savedTime < trainingVideo.duration){
+            trainingVideo.currentTime = savedTime;
+          }
+        }, { once:true });
+      }catch(error){
+        showStatus("error", t.videoError);
+      }
+    }
+
+    function startSession(mode = "start"){
+      const t = translations[getCurrentLang()];
+
+      localStorage.setItem(STORAGE_KEYS.started, "1");
+      localStorage.removeItem(STORAGE_KEYS.completed);
+
+      videoCard.classList.add("show");
+      loadVideo();
+      updateSessionUi();
+
+      if(mode === "restart"){
+        localStorage.setItem(STORAGE_KEYS.progress, "0");
+        localStorage.setItem(STORAGE_KEYS.percent, "0");
+        if(trainingVideo) trainingVideo.currentTime = 0;
+        showStatus("info", t.sessionRestarted);
+      }else if(mode === "resume"){
+        showStatus("info", t.sessionResumed);
+      }else{
+        showStatus("info", t.sessionStarted);
+      }
+
+      updateProgressUi();
+      setTimeout(() => videoCard.scrollIntoView({ behavior:"smooth", block:"start" }), 80);
+    }
+
+    function markComplete(){
+      const t = translations[getCurrentLang()];
+      localStorage.setItem(STORAGE_KEYS.completed, "1");
+      localStorage.setItem(STORAGE_KEYS.percent, "100");
+      localStorage.setItem(STORAGE_KEYS.started, "1");
+      updateProgressUi();
+      updateSessionUi();
+      showStatus("info", t.completionSaved);
+      completeCard.scrollIntoView({ behavior:"smooth", block:"start" });
+    }
+
+    function saveVideoProgress(){
+      if(!trainingVideo || !trainingVideo.duration || !Number.isFinite(trainingVideo.duration)) return;
+      const percent = Math.max(0, Math.min(100, (trainingVideo.currentTime / trainingVideo.duration) * 100));
+      localStorage.setItem(STORAGE_KEYS.progress, String(Math.floor(trainingVideo.currentTime)));
+      localStorage.setItem(STORAGE_KEYS.percent, String(Math.floor(percent)));
+      updateProgressUi();
+    }
+
+    async function redirectIfNotSignedIn(){
+      const t = translations[getCurrentLang()];
+
+      if(!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY || !window.supabaseClient){
+        loadingCard.innerHTML = `<div class="status-message show error">${t.configError}</div>`;
+        return;
+      }
+
+      try{
+        const { data, error } = await supabase.auth.getSession();
+
+        if(error || !data || !data.session){
+          sessionStorage.setItem("recordedTrainingMessage", t.authRequired);
+          window.location.href = getLoginUrl("auth=required");
+          return;
+        }
+
+        currentUser = data.session.user;
+        setLanguage(getPreferredLanguage(currentUser));
+        loadingCard.style.display = "none";
+        content.classList.add("show");
+        updateSessionUi();
+
+        if(hasStarted()){
+          videoCard.classList.add("show");
+          loadVideo();
+        }
+      }catch(error){
+        window.location.href = getLoginUrl("auth=required");
+      }
+    }
+
+    languageSelect.addEventListener("change", async event => {
+      const selectedLang = event.target.value;
+      setLanguage(selectedLang);
+
+      if(currentUser && window.supabaseClient){
+        try{
+          const { data, error } = await supabase.auth.updateUser({
+            data: {
+              preferred_language: selectedLang
+            }
+          });
+
+          if(!error && data && data.user){
+            currentUser = data.user;
+          }
+        }catch(error){
+          console.warn("Language update failed", error);
+        }
+      }
+    });
+
+    logoutButton.addEventListener("click", async () => {
+      const t = translations[getCurrentLang()];
+      logoutButton.disabled = true;
+      logoutButton.textContent = t.loggingOut;
+
+      try{
+        const { error } = await supabase.auth.signOut();
+
+        if(error){
+          showStatus("error", error.message || t.logoutError);
+          logoutButton.disabled = false;
+          logoutButton.textContent = t.logout;
+          return;
+        }
+
+        window.location.href = getLoginUrl("logout=1");
+      }catch(error){
+        showStatus("error", error.message || t.logoutError);
+        logoutButton.disabled = false;
+        logoutButton.textContent = t.logout;
+      }
+    });
+
+    startButton.addEventListener("click", () => startSession("start"));
+    resumeButton.addEventListener("click", () => startSession("resume"));
+    restartButton.addEventListener("click", () => startSession("restart"));
+    markCompleteButton.addEventListener("click", markComplete);
+
+    trainingVideo.addEventListener("timeupdate", saveVideoProgress);
+    trainingVideo.addEventListener("ended", markComplete);
+
+    setLanguage(getCurrentLang());
+    redirectIfNotSignedIn();
+  </script>
+</body>
+</html>
