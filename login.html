@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in | Isha Training</title>
+  <link rel="icon" type="image/x-icon" href="https://training.ishayoga.eu/static/indigo/images/favicon.049a0f1a2bb1.ico" />
+
+  <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    html,
+    body{
+      margin:0;
+      padding:0;
+      min-height:100%;
+      color:#313131;
+      background:#fff;
+      font-family:"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size:16px;
+      line-height:1.5;
+    }
+
+    body{
+      min-height:100vh;
+    }
+
+    a{
+      color:#0075b4;
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    .window-wrap{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      background:#f7f7f7;
+    }
+
+    .global-header{
+      background:#fff;
+      border-bottom:1px solid #e5e5e5;
+      box-shadow:0 1px 3px rgba(0,0,0,.08);
+    }
+
+    .main-header{
+      width:100%;
+      max-width:1180px;
+      min-height:76px;
+      margin:0 auto;
+      padding:0 32px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .header-logo{
+      margin:0;
+      line-height:1;
+    }
+
+    .header-logo a{
+      display:inline-flex;
+      align-items:center;
+    }
+
+    .header-logo .logo{
+      display:block;
+      max-height:52px;
+      max-width:178px;
+      object-fit:contain;
+    }
+
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      color:#555;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .language-switcher{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+    }
+
+    .language-switcher select{
+      height:36px;
+      min-width:118px;
+      border:1px solid #c8c8c8;
+      border-radius:3px;
+      background:#fff;
+      padding:0 10px;
+      color:#333;
+      font:inherit;
+      cursor:pointer;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:38px;
+      padding:8px 16px;
+      border-radius:3px;
+      border:1px solid #0075b4;
+      font-weight:600;
+      line-height:1.2;
+      text-decoration:none;
+      transition:background .18s ease, color .18s ease, border-color .18s ease;
+      cursor:pointer;
+    }
+
+    .btn-primary{
+      color:#fff;
+      background:#0075b4;
+    }
+
+    .btn-secondary{
+      color:#0075b4;
+      background:#fff;
+    }
+
+    .btn:hover,
+    .btn:focus{
+      text-decoration:none;
+      background:#065f91;
+      border-color:#065f91;
+      color:#fff;
+    }
+
+    .btn:disabled{
+      cursor:not-allowed;
+      opacity:.7;
+      background:#8abbd8;
+      border-color:#8abbd8;
+    }
+
+    .auth-hero{
+      min-height:220px;
+      background:
+        linear-gradient(rgba(0,0,0,.28), rgba(0,0,0,.28)),
+        url("https://www.ishayoga.eu/wp-content/uploads/2021/04/isha-yoga-center-london-home-banner.jpg") center center / cover no-repeat;
+    }
+
+    .main-content{
+      flex:1 0 auto;
+      padding:42px 32px 64px;
+    }
+
+    .auth-layout{
+      max-width:980px;
+      margin:-108px auto 0;
+      display:grid;
+      grid-template-columns:minmax(0, .9fr) minmax(360px, 1fr);
+      gap:28px;
+      align-items:start;
+    }
+
+    .intro-panel,
+    .auth-card{
+      background:#fff;
+      border:1px solid #dedede;
+      border-radius:3px;
+      box-shadow:0 2px 8px rgba(0,0,0,.12);
+    }
+
+    .intro-panel{
+      padding:32px;
+    }
+
+    .intro-panel h1{
+      margin:0 0 12px;
+      color:#333;
+      font-family:Georgia, "Times New Roman", serif;
+      font-weight:400;
+      font-size:38px;
+      line-height:1.15;
+    }
+
+    .intro-panel p{
+      margin:0 0 16px;
+      color:#5f5f5f;
+      font-size:16px;
+      line-height:1.65;
+    }
+
+    .divider-yoga{
+      display:block;
+      width:112px;
+      max-width:100%;
+      height:auto;
+      margin:18px 0 24px;
+    }
+
+    .steps-list{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:grid;
+      gap:12px;
+    }
+
+    .steps-list li{
+      display:grid;
+      grid-template-columns:34px minmax(0,1fr);
+      gap:12px;
+      align-items:start;
+      color:#555;
+      font-size:14px;
+    }
+
+    .step-dot{
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid #0075b4;
+      color:#0075b4;
+      background:#f7fcff;
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .auth-card{
+      padding:30px;
+    }
+
+    .auth-card h2{
+      margin:0 0 8px;
+      color:#333;
+      font-size:25px;
+      line-height:1.25;
+      font-weight:600;
+    }
+
+    .auth-subtitle{
+      margin:0 0 24px;
+      color:#666;
+      font-size:14px;
+      line-height:1.55;
+    }
+
+    .form-grid{
+      display:grid;
+      gap:16px;
+    }
+
+    .field-group{
+      display:grid;
+      gap:7px;
+    }
+
+    .field-group label{
+      color:#444;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .field-group input{
+      width:100%;
+      min-height:44px;
+      border:1px solid #c8c8c8;
+      border-radius:3px;
+      padding:0 12px;
+      color:#333;
+      background:#fff;
+      font:inherit;
+      outline:none;
+    }
+
+    .field-group input:focus{
+      border-color:#0075b4;
+      box-shadow:0 0 0 3px rgba(0,117,180,.14);
+    }
+
+    .password-row{
+      position:relative;
+    }
+
+    .password-row input{
+      padding-right:76px;
+    }
+
+    .toggle-password{
+      position:absolute;
+      right:8px;
+      top:50%;
+      transform:translateY(-50%);
+      border:0;
+      background:transparent;
+      color:#0075b4;
+      font-weight:700;
+      cursor:pointer;
+      padding:7px 6px;
+    }
+
+    .field-meta{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      color:#666;
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    .remember-row{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      color:#555;
+      cursor:pointer;
+    }
+
+    .remember-row input{
+      width:auto;
+      min-height:auto;
+      margin:0;
+    }
+
+    .status-message{
+      display:none;
+      padding:13px 14px;
+      border-radius:3px;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .status-message.show{
+      display:block;
+    }
+
+    .status-message.error{
+      color:#842029;
+      background:#f8d7da;
+      border:1px solid #f5c2c7;
+    }
+
+    .status-message.success{
+      color:#0f5132;
+      background:#d1e7dd;
+      border:1px solid #badbcc;
+    }
+
+    .status-message.info{
+      color:#055160;
+      background:#cff4fc;
+      border:1px solid #b6effb;
+    }
+
+    .form-actions{
+      display:grid;
+      gap:14px;
+      margin-top:4px;
+    }
+
+    .form-actions .btn{
+      width:100%;
+      min-height:46px;
+      font-size:15px;
+    }
+
+    .register-note{
+      margin:0;
+      text-align:center;
+      color:#666;
+      font-size:14px;
+    }
+
+    .wrapper-footer{
+      background:#f8f8f8;
+      border-top:1px solid #e3e3e3;
+      flex-shrink:0;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      padding:26px 32px;
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      color:#777;
+      font-size:13px;
+    }
+
+    .footer-links{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width:900px){
+      .auth-layout{
+        grid-template-columns:1fr;
+        max-width:680px;
+      }
+
+      .intro-panel{
+        padding:28px;
+      }
+    }
+
+    @media (max-width:700px){
+      .main-header{
+        min-height:68px;
+        padding:0 20px;
+      }
+
+      .header-actions{
+        gap:10px;
+      }
+
+      .header-actions .btn-secondary{
+        display:none;
+      }
+
+      .language-switcher label{
+        display:none;
+      }
+
+      .language-switcher select{
+        min-width:104px;
+      }
+
+      .auth-hero{
+        min-height:180px;
+      }
+
+      .main-content{
+        padding:28px 20px 48px;
+      }
+
+      .auth-layout{
+        margin-top:-74px;
+      }
+
+      .intro-panel h1{
+        font-size:31px;
+      }
+
+      .auth-card{
+        padding:24px 20px;
+      }
+
+      .field-meta{
+        align-items:flex-start;
+        flex-direction:column;
+        gap:8px;
+      }
+
+      .footer-inner{
+        padding:24px 20px;
+        flex-direction:column;
+      }
+    }
+  </style>
+</head>
+<body class="ltr lang_en">
+  <div class="window-wrap">
+    <header class="global-header">
+      <div class="main-header">
+        <h1 class="header-logo">
+          <a href="index.html" aria-label="Isha Training Home Page" data-i18n-aria="homeAria">
+            <img class="logo" src="https://training.ishayoga.eu/static/indigo/images/logo.45c36d811e2d.png" alt="Isha Training Home Page" data-i18n-alt="homeAria" />
+          </a>
+        </h1>
+
+        <div class="header-actions">
+          <a class="btn btn-secondary" href="registration.html" data-i18n="register">Register</a>
+          <div class="language-switcher">
+            <label for="languageSelect" data-i18n="language">Language</label>
+            <select id="languageSelect" aria-label="Language">
+              <option value="en">English</option>
+              <option value="ta">தமிழ்</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="auth-hero"></div>
+
+    <main class="main-content">
+      <section class="auth-layout" aria-label="Sign in">
+        <aside class="intro-panel">
+          <h1 data-i18n="pageTitle">Welcome back</h1>
+          <p data-i18n="pageIntro">Sign in to continue to your Yoga Veera training dashboard.</p>
+          <img class="divider-yoga" src="https://www.ishayoga.eu/wp-content/themes/iyc_lon/img/divider-yoga.svg" alt="" />
+
+          <ul class="steps-list">
+            <li>
+              <span class="step-dot">1</span>
+              <span data-i18n="stepOne">Enter the email and password you used during registration.</span>
+            </li>
+            <li>
+              <span class="step-dot">2</span>
+              <span data-i18n="stepTwo">Make sure your email is verified if confirmation is enabled.</span>
+            </li>
+            <li>
+              <span class="step-dot">3</span>
+              <span data-i18n="stepThree">Access your dashboard and continue your training.</span>
+            </li>
+          </ul>
+        </aside>
+
+        <section class="auth-card">
+          <h2 data-i18n="formTitle">Sign in</h2>
+          <p class="auth-subtitle" data-i18n="formSubtitle">Use your registered email and password to access your account.</p>
+
+          <form id="loginForm" class="form-grid" novalidate>
+            <div id="statusMessage" class="status-message" role="status" aria-live="polite"></div>
+
+            <div class="field-group">
+              <label for="email" data-i18n="emailLabel">Email address</label>
+              <input id="email" name="email" type="email" autocomplete="email" required data-i18n-placeholder="emailPlaceholder" placeholder="Enter your email address" />
+            </div>
+
+            <div class="field-group">
+              <label for="password" data-i18n="passwordLabel">Password</label>
+              <div class="password-row">
+                <input id="password" name="password" type="password" autocomplete="current-password" required data-i18n-placeholder="passwordPlaceholder" placeholder="Enter your password" />
+                <button class="toggle-password" type="button" data-target="password" data-i18n="showPassword">Show</button>
+              </div>
+            </div>
+
+            <div class="field-meta">
+              <label class="remember-row">
+                <input id="rememberMe" name="rememberMe" type="checkbox" checked />
+                <span data-i18n="rememberMe">Keep me signed in</span>
+              </label>
+              <a href="#" id="forgotPasswordLink" data-i18n="forgotPassword">Forgot password?</a>
+            </div>
+
+            <div class="form-actions">
+              <button id="submitButton" class="btn btn-primary" type="submit" data-i18n="signInButton">Sign in</button>
+              <p class="register-note">
+                <span data-i18n="noAccount">Don’t have an account?</span>
+                <a href="registration.html" data-i18n="createAccountHere">Create one here</a>
+              </p>
+            </div>
+          </form>
+        </section>
+      </section>
+    </main>
+
+    <footer class="wrapper-footer">
+      <div class="footer-inner">
+        <div data-i18n="copyright">© Isha Training. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="https://training.ishayoga.eu/about" data-i18n="about">About</a>
+          <a href="https://training.ishayoga.eu/contact" data-i18n="contact">Contact</a>
+          <a href="https://training.ishayoga.eu/tos" data-i18n="tos">Terms of service</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module">
+    import "./supabase-config.js";
+
+    const supabase = window.supabaseClient;
+
+    const translations = {
+      en: {
+        htmlLang: "en",
+        homeAria: "Isha Training Home Page",
+        register: "Register",
+        language: "Language",
+        pageTitle: "Welcome back",
+        pageIntro: "Sign in to continue to your Yoga Veera training dashboard.",
+        stepOne: "Enter the email and password you used during registration.",
+        stepTwo: "Make sure your email is verified if confirmation is enabled.",
+        stepThree: "Access your dashboard and continue your training.",
+        formTitle: "Sign in",
+        formSubtitle: "Use your registered email and password to access your account.",
+        emailLabel: "Email address",
+        emailPlaceholder: "Enter your email address",
+        passwordLabel: "Password",
+        passwordPlaceholder: "Enter your password",
+        showPassword: "Show",
+        hidePassword: "Hide",
+        rememberMe: "Keep me signed in",
+        forgotPassword: "Forgot password?",
+        signInButton: "Sign in",
+        signingIn: "Signing in...",
+        noAccount: "Don’t have an account?",
+        createAccountHere: "Create one here",
+        registeredMessage: "Registration successful. Please sign in to continue.",
+        verifiedMessage: "Email verified. Please sign in to continue.",
+        loggedOutMessage: "You have been signed out.",
+        requiredError: "Please enter your email and password.",
+        emailError: "Please enter a valid email address.",
+        configError: "Supabase is not configured. Please check supabase-config.js.",
+        genericError: "Unable to sign in. Please check your details and try again.",
+        successRedirect: "Signed in successfully. Redirecting to your dashboard...",
+        resetPrompt: "Enter your email address, then click OK to receive a password reset link.",
+        resetEmailSent: "Password reset email sent. Please check your inbox.",
+        resetCancelled: "Password reset cancelled.",
+        copyright: "© Isha Training. All rights reserved.",
+        about: "About",
+        contact: "Contact",
+        tos: "Terms of service"
+      },
+      ta: {
+        htmlLang: "ta",
+        homeAria: "ஈஷா பயிற்சி முகப்பு பக்கம்",
+        register: "பதிவு செய்யவும்",
+        language: "மொழி",
+        pageTitle: "மீண்டும் வரவேற்கிறோம்",
+        pageIntro: "உங்கள் யோக வீரா பயிற்சி டாஷ்போர்டை தொடர உள்நுழையவும்.",
+        stepOne: "பதிவின்போது பயன்படுத்திய மின்னஞ்சல் மற்றும் கடவுச்சொல்லை உள்ளிடவும்.",
+        stepTwo: "உறுதிப்படுத்தல் இயக்கப்பட்டிருந்தால் உங்கள் மின்னஞ்சல் சரிபார்க்கப்பட்டிருக்க வேண்டும்.",
+        stepThree: "உங்கள் டாஷ்போர்டை அணுகி பயிற்சியைத் தொடரவும்.",
+        formTitle: "உள்நுழைவு",
+        formSubtitle: "உங்கள் கணக்கை அணுக பதிவு செய்யப்பட்ட மின்னஞ்சல் மற்றும் கடவுச்சொல்லைப் பயன்படுத்தவும்.",
+        emailLabel: "மின்னஞ்சல் முகவரி",
+        emailPlaceholder: "உங்கள் மின்னஞ்சல் முகவரியை உள்ளிடவும்",
+        passwordLabel: "கடவுச்சொல்",
+        passwordPlaceholder: "உங்கள் கடவுச்சொல்லை உள்ளிடவும்",
+        showPassword: "காட்டு",
+        hidePassword: "மறை",
+        rememberMe: "என்னை உள்நுழைந்தபடி வைத்திரு",
+        forgotPassword: "கடவுச்சொல் மறந்துவிட்டதா?",
+        signInButton: "உள்நுழையவும்",
+        signingIn: "உள்நுழைகிறது...",
+        noAccount: "கணக்கு இல்லையா?",
+        createAccountHere: "இங்கே உருவாக்கவும்",
+        registeredMessage: "பதிவு வெற்றிகரமாக முடிந்தது. தொடர உள்நுழையவும்.",
+        verifiedMessage: "மின்னஞ்சல் சரிபார்க்கப்பட்டது. தொடர உள்நுழையவும்.",
+        loggedOutMessage: "நீங்கள் வெளியேறிவிட்டீர்கள்.",
+        requiredError: "உங்கள் மின்னஞ்சல் மற்றும் கடவுச்சொல்லை உள்ளிடவும்.",
+        emailError: "சரியான மின்னஞ்சல் முகவரியை உள்ளிடவும்.",
+        configError: "Supabase அமைக்கப்படவில்லை. supabase-config.js ஐச் சரிபார்க்கவும்.",
+        genericError: "உள்நுழைய முடியவில்லை. உங்கள் விவரங்களைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.",
+        successRedirect: "வெற்றிகரமாக உள்நுழைந்தீர்கள். உங்கள் டாஷ்போர்டுக்கு மாற்றப்படுகிறது...",
+        resetPrompt: "கடவுச்சொல் மீட்டமைப்பு இணைப்பைப் பெற உங்கள் மின்னஞ்சல் முகவரியை உள்ளிட்டு OK அழுத்தவும்.",
+        resetEmailSent: "கடவுச்சொல் மீட்டமைப்பு மின்னஞ்சல் அனுப்பப்பட்டது. உங்கள் இன்பாக்ஸைச் சரிபார்க்கவும்.",
+        resetCancelled: "கடவுச்சொல் மீட்டமைப்பு ரத்து செய்யப்பட்டது.",
+        copyright: "© ஈஷா பயிற்சி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
+        about: "பற்றி",
+        contact: "தொடர்பு",
+        tos: "சேவை விதிமுறைகள்"
+      }
+    };
+
+    const languageSelect = document.getElementById("languageSelect");
+    const form = document.getElementById("loginForm");
+    const statusMessage = document.getElementById("statusMessage");
+    const submitButton = document.getElementById("submitButton");
+    const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+
+    function getCurrentLang(){
+      return localStorage.getItem("ishaTrainingLang") || "en";
+    }
+
+    function setLanguage(lang){
+      const safeLang = translations[lang] ? lang : "en";
+      const t = translations[safeLang];
+
+      localStorage.setItem("ishaTrainingLang", safeLang);
+      document.documentElement.lang = t.htmlLang;
+      document.body.className = `ltr lang_${safeLang}`;
+      languageSelect.value = safeLang;
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if(t[key]) el.textContent = t[key];
+      });
+
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-i18n-placeholder");
+        if(t[key]) el.setAttribute("placeholder", t[key]);
+      });
+
+      document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+        const key = el.getAttribute("data-i18n-aria");
+        if(t[key]) el.setAttribute("aria-label", t[key]);
+      });
+
+      document.querySelectorAll("[data-i18n-alt]").forEach(el => {
+        const key = el.getAttribute("data-i18n-alt");
+        if(t[key]) el.setAttribute("alt", t[key]);
+      });
+
+      document.querySelectorAll(".toggle-password").forEach(button => {
+        const target = document.getElementById(button.dataset.target);
+        button.textContent = target.type === "password" ? t.showPassword : t.hidePassword;
+      });
+    }
+
+    function showStatus(type, message){
+      statusMessage.className = `status-message show ${type}`;
+      statusMessage.textContent = message;
+    }
+
+    function clearStatus(){
+      statusMessage.className = "status-message";
+      statusMessage.textContent = "";
+    }
+
+    function getDashboardUrl(){
+      return new URL("dashboard.html", window.location.href).href;
+    }
+
+    function getResetRedirectUrl(){
+      return new URL("login.html?reset=1", window.location.href).href;
+    }
+
+    function isValidEmail(email){
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function validateForm(values){
+      const t = translations[getCurrentLang()];
+
+      if(!values.email || !values.password){
+        return t.requiredError;
+      }
+
+      if(!isValidEmail(values.email)){
+        return t.emailError;
+      }
+
+      if(!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY || !window.supabaseClient){
+        return t.configError;
+      }
+
+      return "";
+    }
+
+    function showInitialMessage(){
+      const params = new URLSearchParams(window.location.search);
+      const t = translations[getCurrentLang()];
+
+      if(params.get("registered") === "1"){
+        showStatus("success", t.registeredMessage);
+      }
+
+      if(params.get("verified") === "1"){
+        showStatus("success", t.verifiedMessage);
+      }
+
+      if(params.get("logout") === "1"){
+        showStatus("info", t.loggedOutMessage);
+      }
+
+      if(params.get("reset") === "1"){
+        showStatus("success", t.resetEmailSent);
+      }
+    }
+
+    languageSelect.addEventListener("change", event => {
+      setLanguage(event.target.value);
+      clearStatus();
+      showInitialMessage();
+    });
+
+    document.querySelectorAll(".toggle-password").forEach(button => {
+      button.addEventListener("click", () => {
+        const target = document.getElementById(button.dataset.target);
+        const t = translations[getCurrentLang()];
+        target.type = target.type === "password" ? "text" : "password";
+        button.textContent = target.type === "password" ? t.showPassword : t.hidePassword;
+      });
+    });
+
+    forgotPasswordLink.addEventListener("click", async event => {
+      event.preventDefault();
+
+      const t = translations[getCurrentLang()];
+      const currentEmail = document.getElementById("email").value.trim().toLowerCase();
+      const email = window.prompt(t.resetPrompt, currentEmail);
+
+      if(!email){
+        showStatus("info", t.resetCancelled);
+        return;
+      }
+
+      if(!isValidEmail(email.trim())){
+        showStatus("error", t.emailError);
+        return;
+      }
+
+      if(!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY || !window.supabaseClient){
+        showStatus("error", t.configError);
+        return;
+      }
+
+      try{
+        const { error } = await supabase.auth.resetPasswordForEmail(email.trim().toLowerCase(), {
+          redirectTo: getResetRedirectUrl()
+        });
+
+        if(error){
+          showStatus("error", error.message || t.genericError);
+          return;
+        }
+
+        showStatus("success", t.resetEmailSent);
+      }catch(error){
+        showStatus("error", error.message || t.genericError);
+      }
+    });
+
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+      clearStatus();
+
+      const t = translations[getCurrentLang()];
+      const values = {
+        email: document.getElementById("email").value.trim().toLowerCase(),
+        password: document.getElementById("password").value,
+        rememberMe: document.getElementById("rememberMe").checked
+      };
+
+      const validationError = validateForm(values);
+      if(validationError){
+        showStatus("error", validationError);
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = t.signingIn;
+      showStatus("info", t.signingIn);
+
+      try{
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: values.email,
+          password: values.password
+        });
+
+        if(error){
+          showStatus("error", error.message || t.genericError);
+          return;
+        }
+
+        if(!values.rememberMe && data && data.session){
+          sessionStorage.setItem("temporaryLogin", "1");
+        }
+
+        showStatus("success", t.successRedirect);
+        window.location.href = getDashboardUrl();
+      }catch(error){
+        showStatus("error", error.message || t.genericError);
+      }finally{
+        submitButton.disabled = false;
+        submitButton.textContent = t.signInButton;
+      }
+    });
+
+    async function redirectIfAlreadySignedIn(){
+      if(!window.supabaseClient) return;
+
+      const params = new URLSearchParams(window.location.search);
+      if(params.get("logout") === "1" || params.get("registered") === "1") return;
+
+      try{
+        const { data } = await supabase.auth.getSession();
+        if(data && data.session){
+          window.location.href = getDashboardUrl();
+        }
+      }catch(error){
+        console.warn("Session check failed", error);
+      }
+    }
+
+    setLanguage(getCurrentLang());
+    showInitialMessage();
+    redirectIfAlreadySignedIn();
+  </script>
+</body>
+</html>
