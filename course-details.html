@@ -382,10 +382,7 @@
       max-width:1180px;
       margin:0 auto;
       padding:44px 32px 64px;
-      display:grid;
-      grid-template-columns:minmax(0,1fr) 320px;
-      gap:42px;
-      align-items:start;
+      display:block;
     }
 
     .details{
@@ -414,76 +411,6 @@
       color:#555;
       font-size:16px;
       line-height:1.75;
-    }
-
-    .course-sidebar{
-      min-width:0;
-    }
-
-    .course-summary{
-      background:#fff;
-      border:1px solid #dedede;
-      border-radius:3px;
-      box-shadow:0 1px 3px rgba(0,0,0,.08);
-      overflow:hidden;
-    }
-
-    .important-dates{
-      list-style:none;
-      margin:0;
-      padding:0;
-    }
-
-    .important-dates-item{
-      display:grid;
-      grid-template-columns:34px minmax(0,1fr);
-      gap:12px;
-      padding:18px;
-      border-bottom:1px solid #e8e8e8;
-      color:#555;
-    }
-
-    .important-dates-item:last-child{
-      border-bottom:0;
-    }
-
-    .date-icon{
-      width:28px;
-      height:28px;
-      border-radius:50%;
-      border:1px solid #0075b4;
-      color:#0075b4;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:#f7fcff;
-      font-size:14px;
-      font-weight:700;
-    }
-
-    .important-dates-item-title{
-      margin:0 0 4px;
-      color:#333;
-      font-size:13px;
-      font-weight:700;
-      text-transform:uppercase;
-      letter-spacing:.03em;
-    }
-
-    .important-dates-item-text{
-      display:block;
-      color:#666;
-      font-size:14px;
-    }
-
-    .side-cta{
-      padding:18px;
-      border-top:1px solid #e8e8e8;
-      background:#fbfbfb;
-    }
-
-    .side-cta .btn{
-      width:100%;
     }
 
     .wrapper-footer{
@@ -524,13 +451,8 @@
         display:none;
       }
 
-      .profile-table,
-      .container{
+      .profile-table{
         grid-template-columns:1fr;
-      }
-
-      .course-sidebar{
-        max-width:520px;
       }
     }
 
@@ -691,32 +613,6 @@
                 </section>
               </div>
             </div>
-
-            <aside class="course-sidebar">
-              <div class="course-summary">
-
-                <ol class="important-dates">
-                  <li class="important-dates-item">
-                    <span class="date-icon" aria-hidden="true">i</span>
-                    <div>
-                      <p class="important-dates-item-title" data-i18n="courseNumberLabel">Course Number</p>
-                      <span class="important-dates-item-text course-number">.</span>
-                    </div>
-                  </li>
-                  <li class="important-dates-item">
-                    <span class="date-icon" aria-hidden="true">📅</span>
-                    <div>
-                      <p class="important-dates-item-title" data-i18n="classesStartLabel">Classes Start</p>
-                      <span id="startDate" class="important-dates-item-text start-date">May 24, 2023</span>
-                    </div>
-                  </li>
-                </ol>
-
-                <div class="side-cta">
-                  <a id="sidebarEnrollButton" class="btn btn-primary" href="registration.html" data-i18n="enrollNow">Enroll Now</a>
-                </div>
-              </div>
-            </aside>
           </div>
         </section>
       </main>
@@ -775,9 +671,6 @@
         ishaVolunteers: "Isha volunteers :)",
         requirementsHeading: "Requirements",
         requirementsText: "No requirements or prerequisites are needed to go through this course! If you know someone that is interested in offering powerful yogic practices to others, they are more then welcome to join!",
-        courseNumberLabel: "Course Number",
-        classesStartLabel: "Classes Start",
-        startDate: "May 24, 2023",
         aboutAria: "About",
         about: "About",
         contact: "Contact",
@@ -810,9 +703,6 @@
         ishaVolunteers: "ஈஷா தன்னார்வலர்கள் :)",
         requirementsHeading: "தேவைகள்",
         requirementsText: "இந்த பாடநெறியைப் படிக்க எந்த தேவைகளும் அல்லது முன் நிபந்தனைகளும் இல்லை! சக்திவாய்ந்த யோகப் பயிற்சிகளை மற்றவர்களுக்கு வழங்க ஆர்வமுள்ள யாரேனும் உங்களுக்கு தெரிந்தால், அவர்களும் சேர வரவேற்கப்படுகிறார்கள்!",
-        courseNumberLabel: "பாடநெறி எண்",
-        classesStartLabel: "வகுப்புகள் தொடக்கம்",
-        startDate: "24 மே 2023",
         aboutAria: "பற்றி",
         about: "பற்றி",
         contact: "தொடர்பு",
@@ -827,14 +717,12 @@
     const hamburger = document.querySelector(".hamburger-menu");
     const mobileMenu = document.getElementById("mobile-menu");
     const mainEnrollButton = document.getElementById("mainEnrollButton");
-    const sidebarEnrollButton = document.getElementById("sidebarEnrollButton");
     const secondaryCourseButton = document.getElementById("secondaryCourseButton");
     const registerNote = document.getElementById("registerNote");
     const headerRegisterLink = document.getElementById("headerRegisterLink");
     const headerSignInLink = document.getElementById("headerSignInLink");
     const mobileRegisterLink = document.getElementById("mobileRegisterLink");
     const mobileSignInLink = document.getElementById("mobileSignInLink");
-    const startDate = document.getElementById("startDate");
 
     let isSignedIn = false;
 
@@ -866,8 +754,6 @@
         const key = el.getAttribute("data-i18n-alt");
         if(t[key]) el.setAttribute("alt", t[key]);
       });
-
-      startDate.textContent = t.startDate;
       updateAuthUi();
     }
 
@@ -877,8 +763,6 @@
       if(isSignedIn){
         mainEnrollButton.href = "dashboard.html";
         mainEnrollButton.textContent = t.continueTraining;
-        sidebarEnrollButton.href = "dashboard.html";
-        sidebarEnrollButton.textContent = t.goToDashboard;
         secondaryCourseButton.href = "dashboard.html";
         secondaryCourseButton.textContent = t.goToDashboard;
         registerNote.textContent = t.dashboardNote;
@@ -897,8 +781,6 @@
 
       mainEnrollButton.href = "registration.html";
       mainEnrollButton.textContent = t.enrollNow;
-      sidebarEnrollButton.href = "registration.html";
-      sidebarEnrollButton.textContent = t.enrollNow;
       secondaryCourseButton.href = "login.html";
       secondaryCourseButton.textContent = t.alreadyRegistered;
       registerNote.textContent = t.registerNote;
