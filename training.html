@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Yoga Veera Training | Isha Training</title>
+  <title>Yoga Veera Training | Isha Yogaveera Training</title>
   <link rel="icon" type="image/x-icon" href="https://training.ishayoga.eu/static/indigo/images/favicon.049a0f1a2bb1.ico" />
 
   <style>
@@ -379,6 +379,16 @@
       color:#0f6b3b;
     }
 
+    .module-status.in-progress{
+      background:#fff7ed;
+      color:#9a3412;
+    }
+
+    .module-status.completed{
+      background:#dcfce7;
+      color:#166534;
+    }
+
     .module-card h3{
       margin:0 0 10px;
       color:#333;
@@ -560,8 +570,8 @@
     <header class="global-header">
       <div class="main-header">
         <h1 class="header-logo">
-          <a href="dashboard.html" aria-label="Isha Training Dashboard" data-i18n-aria="dashboardAria">
-            <img class="logo" src="https://training.ishayoga.eu/static/indigo/images/logo.45c36d811e2d.png" alt="Isha Training Dashboard" data-i18n-alt="dashboardAria" />
+          <a href="dashboard.html" aria-label="Isha Yogaveera Training Dashboard" data-i18n-aria="dashboardAria">
+            <img class="logo" src="https://training.ishayoga.eu/static/indigo/images/logo.45c36d811e2d.png" alt="Isha Yogaveera Training Dashboard" data-i18n-alt="dashboardAria" />
           </a>
         </h1>
 
@@ -633,11 +643,11 @@
               <article class="module-card">
                 <div class="module-top">
                   <span class="module-number">01</span>
-                  <span class="module-status available" data-i18n="available">Available</span>
+                  <span id="recordedTrainingStatus" class="module-status available" data-i18n="available">Available</span>
                 </div>
                 <h3 data-i18n="moduleOneTitle">Course Orientation</h3>
                 <p data-i18n="moduleOneDesc">Begin with the official Yoga Veera Online Course and understand the purpose, structure, and expectations.</p>
-                <a class="btn btn-primary" href="https://training.ishayoga.eu/courses/course-v1:Isha+CS001+2023/about" target="_blank" rel="noopener" data-i18n="startModule">Start</a>
+                <a id="recordedTrainingButton" class="btn btn-primary" href="recorded-training.html" data-i18n="startModule">Start</a>
               </article>
 
               <article class="module-card">
@@ -710,7 +720,7 @@
               <div class="quick-link-card">
                 <h3 data-i18n="supportTitle">Need support?</h3>
                 <p data-i18n="supportDesc">Contact the training team if you need help with account access or training instructions.</p>
-                <a class="btn btn-muted" href="https://training.ishayoga.eu/contact" target="_blank" rel="noopener" data-i18n="contactSupport">Contact support</a>
+                <a class="btn btn-muted" href="work-in-progress.html" target="_blank" rel="noopener" data-i18n="contactSupport">Contact support</a>
               </div>
             </div>
           </section>
@@ -720,11 +730,11 @@
 
     <footer class="wrapper-footer">
       <div class="footer-inner">
-        <div data-i18n="copyright">© Isha Training. All rights reserved.</div>
+        <div data-i18n="copyright">© Isha Yogaveera Training. All rights reserved.</div>
         <div class="footer-links">
-          <a href="https://training.ishayoga.eu/about" data-i18n="about">About</a>
-          <a href="https://training.ishayoga.eu/contact" data-i18n="contact">Contact</a>
-          <a href="https://training.ishayoga.eu/tos" data-i18n="tos">Terms of service</a>
+          <a href="work-in-progress.html" data-i18n="about">About</a>
+          <a href="work-in-progress.html" data-i18n="contact">Contact</a>
+          <a href="work-in-progress.html" data-i18n="tos">Terms of service</a>
         </div>
       </div>
     </footer>
@@ -738,7 +748,7 @@
     const translations = {
       en: {
         htmlLang: "en",
-        dashboardAria: "Isha Training Dashboard",
+        dashboardAria: "Isha Yogaveera Training Dashboard",
         dashboard: "Dashboard",
         logout: "Logout",
         loggingOut: "Logging out...",
@@ -755,6 +765,8 @@
         trainingStepsTitle: "Training steps",
         trainingStepsIntro: "Use these cards as the training pathway. The links can be connected to real content pages as they become available.",
         available: "Available",
+        inProgress: "In progress",
+        completed: "Completed",
         comingSoon: "Coming soon",
         moduleOneTitle: "Course Orientation",
         moduleOneDesc: "Begin with the official Yoga Veera Online Course and understand the purpose, structure, and expectations.",
@@ -769,6 +781,8 @@
         moduleSixTitle: "Feedback",
         moduleSixDesc: "Share feedback about your training experience and help improve the process for future participants.",
         startModule: "Start",
+        resumeModule: "Resume",
+        reviewModule: "Start Again",
         openSection: "Open section",
         quickLinksTitle: "Quick links",
         quickLinksIntro: "Useful places to continue, review, or get help.",
@@ -781,14 +795,14 @@
         sessionExpired: "Please sign in to access the training page.",
         configError: "Supabase is not configured. Please check supabase-config.js.",
         logoutError: "Unable to log out. Please try again.",
-        copyright: "© Isha Training. All rights reserved.",
+        copyright: "© Isha Yogaveera Training. All rights reserved.",
         about: "About",
         contact: "Contact",
         tos: "Terms of service"
       },
       ta: {
         htmlLang: "ta",
-        dashboardAria: "ஈஷா பயிற்சி டாஷ்போர்டு",
+        dashboardAria: "ஈஷா யோக வீரா பயிற்சி டாஷ்போர்டு",
         dashboard: "டாஷ்போர்டு",
         logout: "வெளியேறு",
         loggingOut: "வெளியேறுகிறது...",
@@ -805,6 +819,8 @@
         trainingStepsTitle: "பயிற்சி படிகள்",
         trainingStepsIntro: "இந்த அட்டைகளை பயிற்சி பாதையாக பயன்படுத்தவும். உண்மையான உள்ளடக்கப் பக்கங்கள் தயாரானதும் இணைப்புகளை மாற்றலாம்.",
         available: "கிடைக்கிறது",
+        inProgress: "நடைபெறுகிறது",
+        completed: "நிறைவு செய்யப்பட்டது",
         comingSoon: "விரைவில் வரும்",
         moduleOneTitle: "பாடநெறி அறிமுகம்",
         moduleOneDesc: "அதிகாரப்பூர்வ யோக வீரா ஆன்லைன் பாடநெறியுடன் தொடங்கி, அதன் நோக்கம், அமைப்பு மற்றும் எதிர்பார்ப்புகளைப் புரிந்துகொள்ளுங்கள்.",
@@ -819,6 +835,8 @@
         moduleSixTitle: "கருத்து",
         moduleSixDesc: "உங்கள் பயிற்சி அனுபவத்தைப் பற்றிய கருத்தை பகிர்ந்து, எதிர்கால பங்கேற்பாளர்களுக்கான செயல்முறையை மேம்படுத்த உதவவும்.",
         startModule: "தொடங்கு",
+        resumeModule: "தொடரவும்",
+        reviewModule: "மீண்டும் தொடங்கவும்",
         openSection: "பகுதியைத் திறக்கவும்",
         quickLinksTitle: "விரைவு இணைப்புகள்",
         quickLinksIntro: "தொடர, மதிப்பாய்வு செய்ய அல்லது உதவி பெற பயனுள்ள இடங்கள்.",
@@ -831,7 +849,7 @@
         sessionExpired: "பயிற்சி பக்கத்தை அணுக தயவுசெய்து உள்நுழையவும்.",
         configError: "Supabase அமைக்கப்படவில்லை. supabase-config.js ஐச் சரிபார்க்கவும்.",
         logoutError: "வெளியேற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
-        copyright: "© ஈஷா பயிற்சி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
+        copyright: "© ஈஷா யோக வீரா பயிற்சி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
         about: "பற்றி",
         contact: "தொடர்பு",
         tos: "சேவை விதிமுறைகள்"
@@ -844,6 +862,8 @@
     const trainingContent = document.getElementById("trainingContent");
     const statusMessage = document.getElementById("statusMessage");
     const userName = document.getElementById("userName");
+    const recordedTrainingButton = document.getElementById("recordedTrainingButton");
+    const recordedTrainingStatus = document.getElementById("recordedTrainingStatus");
 
     let currentUser = null;
 
@@ -876,6 +896,7 @@
       });
 
       renderUser(currentUser);
+      updateRecordedTrainingButton();
     }
 
     function showStatus(type, message){
@@ -904,8 +925,45 @@
       return translations[meta.preferred_language] ? meta.preferred_language : getCurrentLang();
     }
 
+
+    function updateRecordedTrainingButton(){
+      const t = translations[getCurrentLang()];
+      const hasStartedRecordedTraining = localStorage.getItem("yv_recorded_training_started") === "1";
+      const hasCompletedRecordedTraining = localStorage.getItem("yv_recorded_training_completed") === "1";
+
+      if(!recordedTrainingButton || !recordedTrainingStatus) return;
+
+      recordedTrainingButton.href = "recorded-training.html";
+
+      if(hasCompletedRecordedTraining){
+        recordedTrainingButton.href = "recorded-training.html?startAgain=1";
+        recordedTrainingButton.textContent = t.reviewModule;
+        recordedTrainingButton.setAttribute("data-i18n", "reviewModule");
+        recordedTrainingStatus.textContent = t.completed;
+        recordedTrainingStatus.setAttribute("data-i18n", "completed");
+        recordedTrainingStatus.className = "module-status completed";
+        return;
+      }
+
+      if(hasStartedRecordedTraining){
+        recordedTrainingButton.textContent = t.resumeModule;
+        recordedTrainingButton.setAttribute("data-i18n", "resumeModule");
+        recordedTrainingStatus.textContent = t.inProgress;
+        recordedTrainingStatus.setAttribute("data-i18n", "inProgress");
+        recordedTrainingStatus.className = "module-status in-progress";
+        return;
+      }
+
+      recordedTrainingButton.textContent = t.startModule;
+      recordedTrainingButton.setAttribute("data-i18n", "startModule");
+      recordedTrainingStatus.textContent = t.available;
+      recordedTrainingStatus.setAttribute("data-i18n", "available");
+      recordedTrainingStatus.className = "module-status available";
+    }
+
     function renderUser(user){
       userName.textContent = getDisplayName(user);
+      updateRecordedTrainingButton();
     }
 
     async function redirectIfNotSignedIn(){
@@ -931,6 +989,7 @@
 
         loadingCard.style.display = "none";
         trainingContent.classList.add("show");
+        updateRecordedTrainingButton();
       }catch(error){
         window.location.href = getLoginUrl("auth=required");
       }
