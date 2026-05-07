@@ -736,7 +736,8 @@
       started: "yv_recorded_training_started",
       completed: "yv_recorded_training_completed",
       progress: "yv_recorded_training_progress_seconds",
-      percent: "yv_recorded_training_progress_percent"
+      percent: "yv_recorded_training_progress_percent",
+      maxWatched: "yv_recorded_training_max_watched_seconds"
     };
 
     const translations = {
@@ -779,6 +780,7 @@
         sessionResumed: "Session resumed.",
         sessionRestarted: "Session restarted from the beginning.",
         completionSaved: "Training marked as complete.",
+        forwardSeekBlocked: "Forward seeking is disabled. Please watch the training in order.",
         configError: "Supabase is not configured. Please check supabase-config.js.",
         authRequired: "Please sign in to access the recorded training.",
         videoError: "Unable to load the training video. Please check the video link or try again later.",
@@ -829,6 +831,7 @@
         sessionResumed: "அமர்வு தொடரப்பட்டது.",
         sessionRestarted: "அமர்வு ஆரம்பத்திலிருந்து மீண்டும் தொடங்கப்பட்டது.",
         completionSaved: "பயிற்சி நிறைவு செய்ததாக குறிக்கப்பட்டது.",
+        forwardSeekBlocked: "முன்னோக்கி நகர்த்துவது முடக்கப்பட்டுள்ளது. தயவுசெய்து பயிற்சியை வரிசையாகப் பாருங்கள்.",
         configError: "Supabase அமைக்கப்படவில்லை. supabase-config.js ஐச் சரிபார்க்கவும்.",
         authRequired: "பதிவு செய்யப்பட்ட பயிற்சியை அணுக தயவுசெய்து உள்நுழையவும்.",
         videoError: "பயிற்சி வீடியோவை ஏற்ற முடியவில்லை. வீடியோ இணைப்பைச் சரிபார்க்கவும் அல்லது பின்னர் மீண்டும் முயற்சிக்கவும்.",
@@ -861,6 +864,8 @@
     let hlsInstance = null;
     let currentUser = null;
     let hasLoadedVideo = false;
+    let isProgrammaticSeek = false;
+    const SEEK_GRACE_SECONDS = 2;
 
     function getCurrentLang(){
       return localStorage.getItem("ishaTrainingLang") || "en";
@@ -938,6 +943,37 @@
       return Number.isFinite(saved) ? Math.max(0, Math.min(100, Math.round(saved))) : 0;
     }
 
+    function getMaxWatched(){
+      const saved = Number(localStorage.getItem(STORAGE_KEYS.maxWatched) || "0");
+      return Number.isFinite(saved) ? saved : 0;
+    }
+
+    function setMaxWatched(value){
+      const currentMax = getMaxWatched();
+      const nextMax = Math.max(currentMax, Number(value) || 0);
+      localStorage.setItem(STORAGE_KEYS.maxWatched, String(Math.floor(nextMax)));
+    }
+
+    function jumpToAllowedTime(time){
+      isProgrammaticSeek = true;
+      trainingVideo.currentTime = Math.max(0, time);
+      window.setTimeout(() => {
+        isProgrammaticSeek = false;
+      }, 250);
+    }
+
+    function preventForwardSeek(){
+      if(isProgrammaticSeek || !trainingVideo) return;
+
+      const maxAllowed = getMaxWatched() + SEEK_GRACE_SECONDS;
+
+      if(trainingVideo.currentTime > maxAllowed){
+        const t = translations[getCurrentLang()];
+        jumpToAllowedTime(getMaxWatched());
+        showStatus("info", t.forwardSeekBlocked);
+      }
+    }
+
     function updateProgressUi(){
       const percent = hasCompleted() ? 100 : getSavedPercent();
       progressValue.textContent = `${percent}%`;
@@ -999,8 +1035,14 @@
 
         trainingVideo.addEventListener("loadedmetadata", () => {
           const savedTime = getSavedProgress();
+          const maxWatched = getMaxWatched();
+
+          if(maxWatched <= 0 && savedTime > 0){
+            setMaxWatched(savedTime);
+          }
+
           if(savedTime > 0 && savedTime < trainingVideo.duration){
-            trainingVideo.currentTime = savedTime;
+            jumpToAllowedTime(savedTime);
           }
         }, { once:true });
       }catch(error){
@@ -1021,7 +1063,8 @@
       if(mode === "restart"){
         localStorage.setItem(STORAGE_KEYS.progress, "0");
         localStorage.setItem(STORAGE_KEYS.percent, "0");
-        if(trainingVideo) trainingVideo.currentTime = 0;
+        localStorage.setItem(STORAGE_KEYS.maxWatched, "0");
+        if(trainingVideo) jumpToAllowedTime(0);
         showStatus("info", t.sessionRestarted);
       }else if(mode === "resume"){
         showStatus("info", t.sessionResumed);
@@ -1038,6 +1081,10 @@
       localStorage.setItem(STORAGE_KEYS.completed, "1");
       localStorage.setItem(STORAGE_KEYS.percent, "100");
       localStorage.setItem(STORAGE_KEYS.started, "1");
+
+      if(trainingVideo && trainingVideo.duration && Number.isFinite(trainingVideo.duration)){
+        localStorage.setItem(STORAGE_KEYS.maxWatched, String(Math.floor(trainingVideo.duration)));
+      }
       updateProgressUi();
       updateSessionUi();
       showStatus("info", t.completionSaved);
@@ -1046,7 +1093,16 @@
 
     function saveVideoProgress(){
       if(!trainingVideo || !trainingVideo.duration || !Number.isFinite(trainingVideo.duration)) return;
-      const percent = Math.max(0, Math.min(100, (trainingVideo.currentTime / trainingVideo.duration) * 100));
+
+      const maxAllowed = getMaxWatched() + SEEK_GRACE_SECONDS;
+      if(!isProgrammaticSeek && trainingVideo.currentTime > maxAllowed){
+        preventForwardSeek();
+        return;
+      }
+
+      setMaxWatched(trainingVideo.currentTime);
+
+      const percent = Math.max(0, Math.min(100, (getMaxWatched() / trainingVideo.duration) * 100));
       localStorage.setItem(STORAGE_KEYS.progress, String(Math.floor(trainingVideo.currentTime)));
       localStorage.setItem(STORAGE_KEYS.percent, String(Math.floor(percent)));
       updateProgressUi();
@@ -1133,6 +1189,8 @@
     restartButton.addEventListener("click", () => startSession("restart"));
     markCompleteButton.addEventListener("click", markComplete);
 
+    trainingVideo.addEventListener("seeking", preventForwardSeek);
+    trainingVideo.addEventListener("seeked", preventForwardSeek);
     trainingVideo.addEventListener("timeupdate", saveVideoProgress);
     trainingVideo.addEventListener("ended", markComplete);
 
