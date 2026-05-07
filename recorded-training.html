@@ -26,6 +26,8 @@
 
     body{
       min-height:100vh;
+      overflow-x:hidden;
+      -webkit-text-size-adjust:100%;
     }
 
     a{
@@ -424,10 +426,13 @@
     video{
       display:block;
       width:100%;
+      max-width:100%;
+      height:auto;
       max-height:72vh;
       background:#111827;
       pointer-events:none;
       user-select:none;
+      object-fit:contain;
     }
 
     .video-footer{
@@ -588,11 +593,224 @@
       }
 
       .session-actions .btn,
-      .video-footer .btn,
       .complete-card .btn{
         width:100%;
       }
     }
+    @media (max-width:520px){
+      .header-inner{
+        min-height:auto;
+        flex-wrap:wrap;
+      }
+
+      .brand-link{
+        width:100%;
+        justify-content:center;
+        padding:8px 12px 6px;
+      }
+
+      .brand-link img{
+        max-width:150px;
+        height:46px;
+      }
+
+      .header-actions{
+        width:100%;
+        min-width:0;
+        justify-content:space-between;
+        border-top:1px solid rgba(255,255,255,.16);
+      }
+
+      .header-link,
+      .header-button{
+        flex:1 1 0;
+        min-height:46px;
+        justify-content:center;
+        padding:0 8px;
+        font-size:12px;
+      }
+
+      .language-wrap{
+        flex:1.15 1 0;
+        min-height:46px;
+        justify-content:center;
+        padding:0 6px;
+      }
+
+      .language-wrap select{
+        width:100%;
+        max-width:112px;
+        height:34px;
+        font-size:12px;
+      }
+
+      .main{
+        padding:18px 12px 40px;
+      }
+
+      .content{
+        gap:16px;
+      }
+
+      .top-row{
+        align-items:stretch;
+        flex-direction:column;
+        gap:10px;
+      }
+
+      .back-link,
+      .status-pill{
+        width:100%;
+        justify-content:center;
+      }
+
+      .hero-card,
+      .guidelines-card,
+      .video-card,
+      .complete-card{
+        border-radius:10px;
+      }
+
+      .hero-inner{
+        gap:18px;
+        padding:20px 16px;
+      }
+
+      .hero-copy p{
+        font-size:14px;
+        line-height:1.6;
+      }
+
+      .eyebrow{
+        font-size:12px;
+      }
+
+      h1{
+        font-size:27px;
+        line-height:1.18;
+      }
+
+      .hero-image{
+        width:100%;
+      }
+
+      .progress-strip{
+        display:grid;
+        grid-template-columns:1fr;
+      }
+
+      .progress-item{
+        padding:14px 16px;
+      }
+
+      .guidelines-card,
+      .complete-card{
+        padding:20px 16px;
+      }
+
+      .section-heading{
+        font-size:22px;
+      }
+
+      .guidelines-list{
+        gap:12px;
+      }
+
+      .guidelines-list li{
+        grid-template-columns:28px minmax(0,1fr);
+        gap:10px;
+        font-size:14px;
+      }
+
+      .guide-icon{
+        width:26px;
+        height:26px;
+        font-size:12px;
+      }
+
+      .session-actions{
+        display:grid;
+        gap:10px;
+      }
+
+      .session-actions .btn{
+        width:100%;
+        min-height:46px;
+      }
+
+      .video-header{
+        padding:16px;
+      }
+
+      .video-header h2{
+        font-size:21px;
+      }
+
+      .video-meta{
+        font-size:12px;
+      }
+
+      .video-shell{
+        width:100%;
+        aspect-ratio:16 / 9;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:#111827;
+      }
+
+      .video-shell video{
+        width:100%;
+        height:100%;
+        max-height:none;
+      }
+
+      .video-footer{
+        padding:14px 16px;
+      }
+
+      .small-note{
+        font-size:12px;
+      }
+
+      .complete-card h2{
+        font-size:22px;
+      }
+
+      .footer-inner{
+        padding:20px 14px;
+        align-items:center;
+        text-align:center;
+        flex-direction:column;
+      }
+
+      .footer-links{
+        justify-content:center;
+        gap:12px;
+      }
+    }
+
+    @media (max-width:380px){
+      .header-link,
+      .header-button{
+        font-size:11px;
+        padding:0 5px;
+      }
+
+      .language-wrap select{
+        max-width:94px;
+        font-size:11px;
+      }
+
+      h1{
+        font-size:24px;
+      }
+
+      .btn{
+        font-size:14px;
+      }
+    }
+
   </style>
 </head>
 <body class="ltr lang_en">
