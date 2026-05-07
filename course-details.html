@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Yoga Veera Online Course | Isha Training</title>
+  <title>Yoga Veera Online Course | Isha Yogaveera Training</title>
   <link rel="icon" type="image/x-icon" href="https://training.ishayoga.eu/static/indigo/images/favicon.049a0f1a2bb1.ico" />
 
   <style>
@@ -643,8 +643,8 @@
     <header class="global-header slim">
       <div class="main-header">
         <h1 class="header-logo">
-          <a href="dashboard.html" aria-label="Isha Training Home Page" data-i18n-aria="homeAria">
-            <img class="logo" src="https://training.ishayoga.eu/static/indigo/images/logo.45c36d811e2d.png" alt="Isha Training Home Page" data-i18n-alt="homeAria" />
+          <a href="dashboard.html" aria-label="Isha Yogaveera Training Home Page" data-i18n-aria="homeAria">
+            <img class="logo" src="https://training.ishayoga.eu/static/indigo/images/logo.45c36d811e2d.png" alt="Isha Yogaveera Training Home Page" data-i18n-alt="homeAria" />
           </a>
           <div class="course-header">
             <span class="provider">Isha:</span>
@@ -782,8 +782,8 @@
         <div class="colophon">
           <nav class="nav-colophon" aria-label="About" data-i18n-aria="aboutAria">
             <ol>
-              <li><a href="https://training.ishayoga.eu/about" data-i18n="about">About</a></li>
-              <li><a href="https://training.ishayoga.eu/contact" data-i18n="contact">Contact</a></li>
+              <li><a href="work-in-progress.html" data-i18n="about">About</a></li>
+              <li><a href="work-in-progress.html" data-i18n="contact">Contact</a></li>
             </ol>
           </nav>
 
@@ -795,12 +795,11 @@
             </p>
           </div>
 
-          <p class="copyright" data-i18n="copyright">© Isha Training. All rights reserved except where noted. </p>
+          <p class="copyright" data-i18n="copyright">© Isha Yogaveera Training. All rights reserved except where noted.</p>
 
           <nav class="nav-legal" aria-label="Legal" data-i18n-aria="legalAria">
             <ul>
-              <li><a href="https://training.ishayoga.eu/tos" data-i18n="tos">Terms of service</a></li>
-              <li><a href="https://github.com/overhangio/tutor-indigo" data-i18n="indigoTheme">Indigo theme for Open edX</a></li>
+              <li><a href="work-in-progress.html" data-i18n="tos">Terms of service</a></li>
             </ul>
           </nav>
         </div>
@@ -817,7 +816,7 @@
       en: {
         htmlLang: "en",
         skip: "Skip to main content",
-        homeAria: "Isha Training Home Page",
+        homeAria: "Isha Yogaveera Training Home Page",
         supplementalLinks: "Supplemental Links",
         register: "Register",
         signIn: "Sign in",
@@ -847,15 +846,14 @@
         about: "About",
         contact: "Contact",
         organizationLogo: "organization logo",
-        copyright: "© Isha Training. All rights reserved except where noted. edX, Open edX and their respective logos are registered trademarks of edX Inc.",
+        copyright: "© Isha Yogaveera Training. All rights reserved except where noted.",
         legalAria: "Legal",
-        tos: "Terms of service",
-        indigoTheme: "Indigo theme for Open edX"
+        tos: "Terms of service"
       },
       ta: {
         htmlLang: "ta",
         skip: "முக்கிய உள்ளடக்கத்திற்குச் செல்லவும்",
-        homeAria: "ஈஷா பயிற்சி முகப்பு பக்கம்",
+        homeAria: "ஈஷா யோக வீரா பயிற்சி முகப்பு பக்கம்",
         supplementalLinks: "கூடுதல் இணைப்புகள்",
         register: "பதிவு செய்யவும்",
         signIn: "உள்நுழையவும்",
@@ -885,10 +883,9 @@
         about: "பற்றி",
         contact: "தொடர்பு",
         organizationLogo: "நிறுவன லோகோ",
-        copyright: "© ஈஷா பயிற்சி. குறிப்பிடப்பட்ட இடங்களைத் தவிர அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை. edX, Open edX மற்றும் அவற்றின் தொடர்புடைய லோகோக்கள் edX Inc. நிறுவனத்தின் பதிவு செய்யப்பட்ட வர்த்தகச் சின்னங்கள்.",
+        copyright: "© ஈஷா யோக வீரா பயிற்சி. குறிப்பிடப்பட்ட இடங்களைத் தவிர அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
         legalAria: "சட்டம்",
-        tos: "சேவை விதிமுறைகள்",
-        indigoTheme: "Open edX க்கான Indigo தீம்"
+        tos: "சேவை விதிமுறைகள்"
       }
     };
 
@@ -952,7 +949,7 @@
     function updateShareLinks(){
       const t = translations[getCurrentLang()];
       const courseUrl = encodeURIComponent(getCourseUrl());
-      const text = encodeURIComponent(`${t.courseTitle} | Isha Training`);
+      const text = encodeURIComponent(`${t.courseTitle} | Isha Yogaveera Training`);
       shareTwitter.href = `https://twitter.com/intent/tweet?text=${text}&url=${courseUrl}`;
       shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${courseUrl}`;
       shareEmail.href = `mailto:?subject=${encodeURIComponent(t.courseTitle)}&body=${encodeURIComponent(`${t.courseTitle}\n${getCourseUrl()}`)}`;
