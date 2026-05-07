@@ -597,12 +597,9 @@
   </div>
 
   <script type="module">
-    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+    import "./supabase-config.js";
 
-    const SUPABASE_URL = "YOUR_SUPABASE_URL";
-    const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
-
-    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const supabase = window.supabaseClient;
 
     const translations = {
       en: {
@@ -786,7 +783,7 @@
         return t.termsError;
       }
 
-      if(SUPABASE_URL === "YOUR_SUPABASE_URL" || SUPABASE_ANON_KEY === "YOUR_SUPABASE_ANON_KEY"){
+      if(!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY || !window.supabaseClient){
         return t.configError;
       }
 
