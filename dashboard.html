@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard | Isha Training</title>
+  <link rel="icon" type="image/x-icon" href="https://training.ishayoga.eu/static/indigo/images/favicon.049a0f1a2bb1.ico" />
+
+  <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    html,
+    body{
+      margin:0;
+      padding:0;
+      min-height:100%;
+      color:#313131;
+      background:#fff;
+      font-family:"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size:16px;
+      line-height:1.5;
+    }
+
+    body{
+      min-height:100vh;
+    }
+
+    a{
+      color:#0075b4;
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    .window-wrap{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      background:#f7f7f7;
+    }
+
+    .global-header{
+      background:#fff;
+      border-bottom:1px solid #e5e5e5;
+      box-shadow:0 1px 3px rgba(0,0,0,.08);
+    }
+
+    .main-header{
+      width:100%;
+      max-width:1180px;
+      min-height:76px;
+      margin:0 auto;
+      padding:0 32px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .header-logo{
+      margin:0;
+      line-height:1;
+    }
+
+    .header-logo a{
+      display:inline-flex;
+      align-items:center;
+    }
+
+    .header-logo .logo{
+      display:block;
+      max-height:52px;
+      max-width:178px;
+      object-fit:contain;
+    }
+
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      color:#555;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .language-switcher{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+    }
+
+    .language-switcher select{
+      height:36px;
+      min-width:118px;
+      border:1px solid #c8c8c8;
+      border-radius:3px;
+      background:#fff;
+      padding:0 10px;
+      color:#333;
+      font:inherit;
+      cursor:pointer;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:38px;
+      padding:8px 16px;
+      border-radius:3px;
+      border:1px solid #0075b4;
+      font-weight:600;
+      line-height:1.2;
+      text-decoration:none;
+      transition:background .18s ease, color .18s ease, border-color .18s ease;
+      cursor:pointer;
+      font:inherit;
+    }
+
+    .btn-primary{
+      color:#fff;
+      background:#0075b4;
+    }
+
+    .btn-secondary{
+      color:#0075b4;
+      background:#fff;
+    }
+
+    .btn-muted{
+      color:#555;
+      background:#fff;
+      border-color:#c8c8c8;
+    }
+
+    .btn:hover,
+    .btn:focus{
+      text-decoration:none;
+      background:#065f91;
+      border-color:#065f91;
+      color:#fff;
+    }
+
+    .btn:disabled{
+      cursor:not-allowed;
+      opacity:.7;
+      background:#8abbd8;
+      border-color:#8abbd8;
+      color:#fff;
+    }
+
+    .dashboard-hero{
+      min-height:240px;
+      background:
+        linear-gradient(rgba(0,0,0,.34), rgba(0,0,0,.34)),
+        url("https://www.ishayoga.eu/wp-content/uploads/2021/04/isha-yoga-center-london-home-banner.jpg") center center / cover no-repeat;
+    }
+
+    .main-content{
+      flex:1 0 auto;
+      padding:42px 32px 64px;
+    }
+
+    .dashboard-shell{
+      max-width:1180px;
+      margin:-124px auto 0;
+      display:grid;
+      gap:28px;
+    }
+
+    .welcome-card,
+    .panel-card,
+    .course-card,
+    .loading-card{
+      background:#fff;
+      border:1px solid #dedede;
+      border-radius:3px;
+      box-shadow:0 2px 8px rgba(0,0,0,.12);
+    }
+
+    .loading-card{
+      padding:34px;
+      text-align:center;
+      color:#666;
+    }
+
+    .spinner{
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      border:4px solid #d7eaf5;
+      border-top-color:#0075b4;
+      margin:0 auto 16px;
+      animation:spin .85s linear infinite;
+    }
+
+    @keyframes spin{
+      to{ transform:rotate(360deg); }
+    }
+
+    .dashboard-content{
+      display:none;
+      gap:28px;
+    }
+
+    .dashboard-content.show{
+      display:grid;
+    }
+
+    .welcome-card{
+      overflow:hidden;
+    }
+
+    .welcome-inner{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 320px;
+      gap:24px;
+      align-items:center;
+      padding:34px;
+    }
+
+    .welcome-copy h1{
+      margin:0 0 10px;
+      color:#333;
+      font-family:Georgia, "Times New Roman", serif;
+      font-weight:400;
+      font-size:39px;
+      line-height:1.16;
+    }
+
+    .welcome-copy p{
+      margin:0;
+      color:#626262;
+      font-size:16px;
+      line-height:1.65;
+      max-width:680px;
+    }
+
+    .user-box{
+      background:#f8fbfd;
+      border:1px solid #dcecf4;
+      padding:20px;
+      border-radius:3px;
+    }
+
+    .user-box-title{
+      margin:0 0 12px;
+      color:#333;
+      font-size:14px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.03em;
+    }
+
+    .user-detail{
+      margin:0;
+      color:#555;
+      font-size:14px;
+      line-height:1.6;
+      word-break:break-word;
+    }
+
+    .user-detail strong{
+      color:#333;
+    }
+
+    .dashboard-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.1fr) minmax(320px,.8fr);
+      gap:28px;
+      align-items:start;
+    }
+
+    .course-card{
+      overflow:hidden;
+    }
+
+    .course-cover{
+      position:relative;
+      min-height:260px;
+      background:#eee;
+      overflow:hidden;
+    }
+
+    .course-cover img{
+      width:100%;
+      height:100%;
+      min-height:260px;
+      display:block;
+      object-fit:cover;
+    }
+
+    .course-ribbon{
+      position:absolute;
+      left:0;
+      bottom:0;
+      right:0;
+      background:rgba(0,117,180,.92);
+      color:#fff;
+      padding:12px 20px;
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:.04em;
+      text-align:center;
+    }
+
+    .course-body{
+      padding:28px;
+    }
+
+    .course-body h2{
+      margin:0 0 8px;
+      color:#333;
+      font-size:26px;
+      line-height:1.25;
+      font-weight:600;
+    }
+
+    .course-meta{
+      margin:0 0 18px;
+      color:#777;
+      font-size:13px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.03em;
+    }
+
+    .course-body p{
+      margin:0 0 22px;
+      color:#666;
+      line-height:1.65;
+    }
+
+    .course-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .panel-card{
+      padding:26px;
+    }
+
+    .panel-card h2{
+      margin:0 0 10px;
+      color:#333;
+      font-size:22px;
+      line-height:1.3;
+    }
+
+    .panel-card p{
+      margin:0 0 18px;
+      color:#666;
+      font-size:14px;
+      line-height:1.65;
+    }
+
+    .status-list{
+      list-style:none;
+      margin:0;
+      padding:0;
+      display:grid;
+      gap:12px;
+    }
+
+    .status-list li{
+      display:grid;
+      grid-template-columns:32px minmax(0,1fr);
+      gap:12px;
+      align-items:start;
+      color:#555;
+      font-size:14px;
+    }
+
+    .status-icon{
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#f7fcff;
+      border:1px solid #0075b4;
+      color:#0075b4;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .support-card{
+      margin-top:28px;
+    }
+
+    .status-message{
+      display:none;
+      padding:13px 14px;
+      border-radius:3px;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .status-message.show{
+      display:block;
+    }
+
+    .status-message.error{
+      color:#842029;
+      background:#f8d7da;
+      border:1px solid #f5c2c7;
+    }
+
+    .status-message.success{
+      color:#0f5132;
+      background:#d1e7dd;
+      border:1px solid #badbcc;
+    }
+
+    .status-message.info{
+      color:#055160;
+      background:#cff4fc;
+      border:1px solid #b6effb;
+    }
+
+    .wrapper-footer{
+      background:#f8f8f8;
+      border-top:1px solid #e3e3e3;
+      flex-shrink:0;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      padding:26px 32px;
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      color:#777;
+      font-size:13px;
+    }
+
+    .footer-links{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width:960px){
+      .welcome-inner,
+      .dashboard-grid{
+        grid-template-columns:1fr;
+      }
+
+      .user-box{
+        max-width:520px;
+      }
+    }
+
+    @media (max-width:700px){
+      .main-header{
+        min-height:68px;
+        padding:0 20px;
+      }
+
+      .header-actions{
+        gap:10px;
+      }
+
+      .language-switcher label{
+        display:none;
+      }
+
+      .language-switcher select{
+        min-width:104px;
+      }
+
+      .btn-secondary.logout-button{
+        padding-left:12px;
+        padding-right:12px;
+      }
+
+      .dashboard-hero{
+        min-height:180px;
+      }
+
+      .main-content{
+        padding:28px 20px 48px;
+      }
+
+      .dashboard-shell{
+        margin-top:-76px;
+      }
+
+      .welcome-inner,
+      .course-body,
+      .panel-card{
+        padding:24px 20px;
+      }
+
+      .welcome-copy h1{
+        font-size:31px;
+      }
+
+      .course-cover,
+      .course-cover img{
+        min-height:210px;
+      }
+
+      .course-actions{
+        display:grid;
+      }
+
+      .course-actions .btn{
+        width:100%;
+      }
+
+      .footer-inner{
+        padding:24px 20px;
+        flex-direction:column;
+      }
+    }
+  </style>
+</head>
+<body class="ltr lang_en">
+  <div class="window-wrap">
+    <header class="global-header">
+      <div class="main-header">
+        <h1 class="header-logo">
+          <a href="dashboard.html" aria-label="Isha Training Dashboard" data-i18n-aria="dashboardAria">
+            <img class="logo" src="https://training.ishayoga.eu/static/indigo/images/logo.45c36d811e2d.png" alt="Isha Training Dashboard" data-i18n-alt="dashboardAria" />
+          </a>
+        </h1>
+
+        <div class="header-actions">
+          <button id="logoutButton" class="btn btn-secondary logout-button" type="button" data-i18n="logout">Logout</button>
+          <div class="language-switcher">
+            <label for="languageSelect" data-i18n="language">Language</label>
+            <select id="languageSelect" aria-label="Language">
+              <option value="en">English</option>
+              <option value="ta">தமிழ்</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="dashboard-hero"></div>
+
+    <main class="main-content">
+      <section class="dashboard-shell" aria-label="Training dashboard">
+        <div id="loadingCard" class="loading-card">
+          <div class="spinner" aria-hidden="true"></div>
+          <div data-i18n="loading">Checking your account...</div>
+        </div>
+
+        <div id="dashboardContent" class="dashboard-content">
+          <section class="welcome-card">
+            <div class="welcome-inner">
+              <div class="welcome-copy">
+                <h1 id="welcomeTitle" data-i18n="welcomeTitle">Welcome to your training dashboard</h1>
+                <p data-i18n="welcomeIntro">Continue your Yoga Veera Online Course and keep track of your next steps from here.</p>
+              </div>
+
+              <aside class="user-box">
+                <h2 class="user-box-title" data-i18n="accountInfo">Account information</h2>
+                <p class="user-detail"><strong data-i18n="nameLabel">Name:</strong> <span id="userName">—</span></p>
+                <p class="user-detail"><strong data-i18n="emailLabel">Email:</strong> <span id="userEmail">—</span></p>
+                <p class="user-detail"><strong data-i18n="languageLabel">Language:</strong> <span id="userLanguage">—</span></p>
+              </aside>
+            </div>
+          </section>
+
+          <div id="statusMessage" class="status-message" role="status" aria-live="polite"></div>
+
+          <section class="dashboard-grid">
+            <article class="course-card">
+              <div class="course-cover">
+                <img src="https://training.ishayoga.eu/asset-v1:Isha+CS001+2023+type@asset+block@Using_an_Online_Platform__Google_Meet_Tutorial.png" alt="Yoga Veera Online Course" data-i18n-alt="courseTitle" />
+                <div class="course-ribbon" data-i18n="courseRibbon">YOGA VEERA ONLINE COURSE</div>
+              </div>
+              <div class="course-body">
+                <div class="course-meta" data-i18n="courseMeta">Isha · Online Training</div>
+                <h2 data-i18n="courseTitle">Yoga Veera Online Course</h2>
+                <p data-i18n="courseDesc">Access your course page and continue the training through the official Isha Training platform.</p>
+                <div class="course-actions">
+                  <a class="btn btn-primary" href="https://training.ishayoga.eu/courses/course-v1:Isha+CS001+2023/about" target="_blank" rel="noopener" data-i18n="openCourse">Open Yoga Veera Course</a>
+                  <a class="btn btn-muted" href="https://training.ishayoga.eu/contact" target="_blank" rel="noopener" data-i18n="contactSupport">Contact support</a>
+                </div>
+              </div>
+            </article>
+
+            <aside>
+              <section class="panel-card">
+                <h2 data-i18n="nextStepsTitle">Next steps</h2>
+                <p data-i18n="nextStepsIntro">Use this dashboard as your starting point for the training journey.</p>
+                <ul class="status-list">
+                  <li>
+                    <span class="status-icon">1</span>
+                    <span data-i18n="nextStepOne">Open the Yoga Veera Online Course.</span>
+                  </li>
+                  <li>
+                    <span class="status-icon">2</span>
+                    <span data-i18n="nextStepTwo">Complete the required training activities.</span>
+                  </li>
+                  <li>
+                    <span class="status-icon">3</span>
+                    <span data-i18n="nextStepThree">Follow the completion instructions provided inside the course.</span>
+                  </li>
+                </ul>
+              </section>
+
+              <section class="panel-card support-card">
+                <h2 data-i18n="resourcesTitle">Post-training resources</h2>
+                <p data-i18n="resourcesDesc">After completion, access to files for running Yoga Veera sessions can be added here later.</p>
+                <button class="btn btn-muted" type="button" disabled data-i18n="resourcesComingSoon">Resources coming soon</button>
+              </section>
+            </aside>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrapper-footer">
+      <div class="footer-inner">
+        <div data-i18n="copyright">© Isha Training. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="https://training.ishayoga.eu/about" data-i18n="about">About</a>
+          <a href="https://training.ishayoga.eu/contact" data-i18n="contact">Contact</a>
+          <a href="https://training.ishayoga.eu/tos" data-i18n="tos">Terms of service</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module">
+    import "./supabase-config.js";
+
+    const supabase = window.supabaseClient;
+
+    const translations = {
+      en: {
+        htmlLang: "en",
+        dashboardAria: "Isha Training Dashboard",
+        logout: "Logout",
+        loggingOut: "Logging out...",
+        language: "Language",
+        loading: "Checking your account...",
+        welcomeTitle: "Welcome to your training dashboard",
+        welcomeTitleWithName: "Welcome, {name}",
+        welcomeIntro: "Continue your Yoga Veera Online Course and keep track of your next steps from here.",
+        accountInfo: "Account information",
+        nameLabel: "Name:",
+        emailLabel: "Email:",
+        languageLabel: "Language:",
+        courseRibbon: "YOGA VEERA ONLINE COURSE",
+        courseMeta: "Isha · Online Training",
+        courseTitle: "Yoga Veera Online Course",
+        courseDesc: "Access your course page and continue the training through the official Isha Training platform.",
+        openCourse: "Open Yoga Veera Course",
+        contactSupport: "Contact support",
+        nextStepsTitle: "Next steps",
+        nextStepsIntro: "Use this dashboard as your starting point for the training journey.",
+        nextStepOne: "Open the Yoga Veera Online Course.",
+        nextStepTwo: "Complete the required training activities.",
+        nextStepThree: "Follow the completion instructions provided inside the course.",
+        resourcesTitle: "Post-training resources",
+        resourcesDesc: "After completion, access to files for running Yoga Veera sessions can be added here later.",
+        resourcesComingSoon: "Resources coming soon",
+        sessionExpired: "Please sign in to access your dashboard.",
+        configError: "Supabase is not configured. Please check supabase-config.js.",
+        logoutError: "Unable to log out. Please try again.",
+        languageSaved: "Language preference updated.",
+        copyright: "© Isha Training. All rights reserved.",
+        about: "About",
+        contact: "Contact",
+        tos: "Terms of service",
+        english: "English",
+        tamil: "Tamil"
+      },
+      ta: {
+        htmlLang: "ta",
+        dashboardAria: "ஈஷா பயிற்சி டாஷ்போர்டு",
+        logout: "வெளியேறு",
+        loggingOut: "வெளியேறுகிறது...",
+        language: "மொழி",
+        loading: "உங்கள் கணக்கு சரிபார்க்கப்படுகிறது...",
+        welcomeTitle: "உங்கள் பயிற்சி டாஷ்போர்டுக்கு வரவேற்கிறோம்",
+        welcomeTitleWithName: "வரவேற்கிறோம், {name}",
+        welcomeIntro: "உங்கள் யோக வீரா ஆன்லைன் பாடநெறியை தொடரவும், அடுத்த படிகளை இங்கிருந்து கண்காணிக்கவும்.",
+        accountInfo: "கணக்கு தகவல்",
+        nameLabel: "பெயர்:",
+        emailLabel: "மின்னஞ்சல்:",
+        languageLabel: "மொழி:",
+        courseRibbon: "யோக வீரா ஆன்லைன் பாடநெறி",
+        courseMeta: "ஈஷா · ஆன்லைன் பயிற்சி",
+        courseTitle: "யோக வீரா ஆன்லைன் பாடநெறி",
+        courseDesc: "அதிகாரப்பூர்வ ஈஷா பயிற்சி தளத்தின் மூலம் உங்கள் பாடநெறி பக்கத்தை அணுகி பயிற்சியைத் தொடரவும்.",
+        openCourse: "யோக வீரா பாடநெறியைத் திறக்கவும்",
+        contactSupport: "ஆதரவைக் தொடர்பு கொள்ளவும்",
+        nextStepsTitle: "அடுத்த படிகள்",
+        nextStepsIntro: "பயிற்சி பயணத்திற்கான தொடக்க இடமாக இந்த டாஷ்போர்டைப் பயன்படுத்தவும்.",
+        nextStepOne: "யோக வீரா ஆன்லைன் பாடநெறியைத் திறக்கவும்.",
+        nextStepTwo: "தேவையான பயிற்சி செயல்பாடுகளை முடிக்கவும்.",
+        nextStepThree: "பாடநெறிக்குள் வழங்கப்பட்ட நிறைவு வழிமுறைகளைப் பின்பற்றவும்.",
+        resourcesTitle: "பயிற்சிக்குப் பிந்தைய வளங்கள்",
+        resourcesDesc: "நிறைவு செய்த பிறகு, யோக வீரா அமர்வுகளை நடத்த தேவையான கோப்புகளுக்கான அணுகலை இங்கே பின்னர் சேர்க்கலாம்.",
+        resourcesComingSoon: "வளங்கள் விரைவில் வரும்",
+        sessionExpired: "உங்கள் டாஷ்போர்டை அணுக தயவுசெய்து உள்நுழையவும்.",
+        configError: "Supabase அமைக்கப்படவில்லை. supabase-config.js ஐச் சரிபார்க்கவும்.",
+        logoutError: "வெளியேற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+        languageSaved: "மொழி விருப்பம் புதுப்பிக்கப்பட்டது.",
+        copyright: "© ஈஷா பயிற்சி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
+        about: "பற்றி",
+        contact: "தொடர்பு",
+        tos: "சேவை விதிமுறைகள்",
+        english: "ஆங்கிலம்",
+        tamil: "தமிழ்"
+      }
+    };
+
+    const languageSelect = document.getElementById("languageSelect");
+    const logoutButton = document.getElementById("logoutButton");
+    const loadingCard = document.getElementById("loadingCard");
+    const dashboardContent = document.getElementById("dashboardContent");
+    const statusMessage = document.getElementById("statusMessage");
+    const userName = document.getElementById("userName");
+    const userEmail = document.getElementById("userEmail");
+    const userLanguage = document.getElementById("userLanguage");
+    const welcomeTitle = document.getElementById("welcomeTitle");
+
+    let currentUser = null;
+
+    function getCurrentLang(){
+      return localStorage.getItem("ishaTrainingLang") || "en";
+    }
+
+    function setLanguage(lang, options = {}){
+      const safeLang = translations[lang] ? lang : "en";
+      const t = translations[safeLang];
+
+      localStorage.setItem("ishaTrainingLang", safeLang);
+      document.documentElement.lang = t.htmlLang;
+      document.body.className = `ltr lang_${safeLang}`;
+      languageSelect.value = safeLang;
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if(t[key]) el.textContent = t[key];
+      });
+
+      document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+        const key = el.getAttribute("data-i18n-aria");
+        if(t[key]) el.setAttribute("aria-label", t[key]);
+      });
+
+      document.querySelectorAll("[data-i18n-alt]").forEach(el => {
+        const key = el.getAttribute("data-i18n-alt");
+        if(t[key]) el.setAttribute("alt", t[key]);
+      });
+
+      renderUser(currentUser);
+
+      if(options.showSavedMessage){
+        showStatus("success", t.languageSaved);
+      }
+    }
+
+    function showStatus(type, message){
+      statusMessage.className = `status-message show ${type}`;
+      statusMessage.textContent = message;
+    }
+
+    function clearStatus(){
+      statusMessage.className = "status-message";
+      statusMessage.textContent = "";
+    }
+
+    function getLoginUrl(params = ""){
+      const url = new URL("login.html", window.location.href);
+      if(params){
+        const searchParams = new URLSearchParams(params);
+        searchParams.forEach((value, key) => url.searchParams.set(key, value));
+      }
+      return url.href;
+    }
+
+    function getDisplayName(user){
+      if(!user) return "";
+      const meta = user.user_metadata || {};
+      return meta.full_name || meta.name || user.email || "";
+    }
+
+    function getPreferredLanguage(user){
+      if(!user) return getCurrentLang();
+      const meta = user.user_metadata || {};
+      return translations[meta.preferred_language] ? meta.preferred_language : getCurrentLang();
+    }
+
+    function getLanguageName(lang){
+      const t = translations[getCurrentLang()];
+      if(lang === "ta") return t.tamil;
+      return t.english;
+    }
+
+    function renderUser(user){
+      if(!user) return;
+
+      const lang = getCurrentLang();
+      const t = translations[lang];
+      const displayName = getDisplayName(user);
+      const preferredLang = getPreferredLanguage(user);
+
+      welcomeTitle.textContent = displayName
+        ? t.welcomeTitleWithName.replace("{name}", displayName)
+        : t.welcomeTitle;
+
+      userName.textContent = displayName || "—";
+      userEmail.textContent = user.email || "—";
+      userLanguage.textContent = getLanguageName(preferredLang);
+    }
+
+    async function redirectIfNotSignedIn(){
+      const t = translations[getCurrentLang()];
+
+      if(!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY || !window.supabaseClient){
+        loadingCard.innerHTML = `<div class="status-message show error">${t.configError}</div>`;
+        return;
+      }
+
+      try{
+        const { data, error } = await supabase.auth.getSession();
+
+        if(error){
+          window.location.href = getLoginUrl("auth=required");
+          return;
+        }
+
+        if(!data || !data.session){
+          sessionStorage.setItem("dashboardMessage", t.sessionExpired);
+          window.location.href = getLoginUrl("auth=required");
+          return;
+        }
+
+        currentUser = data.session.user;
+        const preferredLang = getPreferredLanguage(currentUser);
+        setLanguage(preferredLang);
+        renderUser(currentUser);
+
+        loadingCard.style.display = "none";
+        dashboardContent.classList.add("show");
+      }catch(error){
+        window.location.href = getLoginUrl("auth=required");
+      }
+    }
+
+    languageSelect.addEventListener("change", async event => {
+      clearStatus();
+      const selectedLang = event.target.value;
+      setLanguage(selectedLang);
+
+      if(currentUser && window.supabaseClient){
+        try{
+          const { data, error } = await supabase.auth.updateUser({
+            data: {
+              preferred_language: selectedLang
+            }
+          });
+
+          if(!error && data && data.user){
+            currentUser = data.user;
+          }
+
+          setLanguage(selectedLang, { showSavedMessage: true });
+        }catch(error){
+          setLanguage(selectedLang);
+        }
+      }
+    });
+
+    logoutButton.addEventListener("click", async () => {
+      const t = translations[getCurrentLang()];
+      logoutButton.disabled = true;
+      logoutButton.textContent = t.loggingOut;
+      clearStatus();
+
+      try{
+        const { error } = await supabase.auth.signOut();
+
+        if(error){
+          showStatus("error", error.message || t.logoutError);
+          logoutButton.disabled = false;
+          logoutButton.textContent = t.logout;
+          return;
+        }
+
+        sessionStorage.removeItem("temporaryLogin");
+        window.location.href = getLoginUrl("logout=1");
+      }catch(error){
+        showStatus("error", error.message || t.logoutError);
+        logoutButton.disabled = false;
+        logoutButton.textContent = t.logout;
+      }
+    });
+
+    setLanguage(getCurrentLang());
+    redirectIfNotSignedIn();
+  </script>
+</body>
+</html>
